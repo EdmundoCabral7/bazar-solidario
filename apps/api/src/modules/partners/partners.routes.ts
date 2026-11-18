@@ -37,13 +37,11 @@ adminPartnerRoutes.post('/', async (req, res) => {
     data: { ...input, apiKeyPrefix: prefix, apiKeyHash: hash },
     select,
   });
-  res
-    .status(201)
-    .json({
-      ...partner,
-      apiKey: key,
-      warning: 'Guarde esta chave: ela não será exibida novamente.',
-    });
+  res.status(201).json({
+    ...partner,
+    apiKey: key,
+    warning: 'Guarde esta chave: ela não será exibida novamente.',
+  });
 });
 
 /** Gera nova chave (a anterior deixa de funcionar imediatamente). */

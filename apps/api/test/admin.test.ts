@@ -17,17 +17,14 @@ const auth = () => ({ authorization: `Bearer ${token}` });
 
 describe('admin', () => {
   it('CRUD de animais gera slug e aparece na vitrine', async () => {
-    const created = await request(app)
-      .post('/api/admin/animals')
-      .set(auth())
-      .send({
-        name: 'Paçoca',
-        species: 'CAT',
-        ageMonths: 6,
-        size: 'SMALL',
-        sex: 'FEMALE',
-        description: 'Gatinha muito carinhosa',
-      });
+    const created = await request(app).post('/api/admin/animals').set(auth()).send({
+      name: 'Paçoca',
+      species: 'CAT',
+      ageMonths: 6,
+      size: 'SMALL',
+      sex: 'FEMALE',
+      description: 'Gatinha muito carinhosa',
+    });
     expect(created.status).toBe(201);
     expect(created.body.slug).toBe('pacoca');
     const list = await request(app).get('/api/animals?species=CAT');

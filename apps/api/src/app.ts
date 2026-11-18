@@ -49,9 +49,12 @@ export function createApp(opts: AppOptions = {}) {
     res.on('finish', () => recordResponse(res.statusCode));
     next();
   });
-  // Swagger UI usa scripts/estilos inline: CSP desligada só em /docs
-  app.use('/docs', helmet({ contentSecurityPolicy: false }));
-  app.use(helmet());
+  // Swagger UI usa scripts/estilos inline: CSP desligada só em /docs; demais rotas com helmet completo
+  const docsHelmet = helmet({ contentSecurityPolicy: false });
+  const strictHelmet = helmet();
+  app.use((req, res, next) =>
+    (req.path.startsWith('/docs') ? docsHelmet : strictHelmet)(req, res, next),
+  );
   // A API pública é server-to-server: CORS restrito vale para o portal; parceiros não usam navegador.
   app.use(
     cors({ origin: corsOrigins, exposedHeaders: ['x-correlation-id', 'Idempotent-Replayed'] }),

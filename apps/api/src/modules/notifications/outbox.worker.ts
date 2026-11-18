@@ -29,7 +29,7 @@ async function claimBatch(limit: number): Promise<NotificationOutbox[]> {
         WHERE status = 'PENDING'
           AND "nextAttemptAt" <= ${now}
           AND ("lockedUntil" IS NULL OR "lockedUntil" < ${now})
-        ORDER BY "nextAttemptAt"
+        ORDER BY "nextAttemptAt", "createdAt"
         LIMIT ${limit}
         FOR UPDATE SKIP LOCKED
      )
