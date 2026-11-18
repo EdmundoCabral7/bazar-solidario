@@ -291,6 +291,8 @@ export const createInternalTicketSchema = createTicketSchema.extend({
 });
 
 export const ticketFiltersSchema = paginationSchema.extend({
+  /** 'active' = fila de trabalho (OPEN, IN_PROGRESS, WAITING_USER) */
+  scope: z.enum(['active', 'all']).default('all'),
   status: z.enum(TicketStatuses).optional(),
   priority: z.enum(['P1', 'P2', 'P3', 'P4']).optional(),
   level: z.enum(SupportLevels).optional(),

@@ -2577,6 +2577,19 @@
             }
           },
           {
+            "name": "scope",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "active",
+                "all"
+              ],
+              "default": "all"
+            }
+          },
+          {
             "name": "status",
             "in": "query",
             "required": false,

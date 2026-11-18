@@ -202,6 +202,7 @@ export async function requesterReply(protocol: string, email: string, message: s
 export async function listTickets(f: {
   page: number;
   pageSize: number;
+  scope?: 'active' | 'all';
   status?: TicketStatus;
   priority?: Ticket['priority'];
   level?: Ticket['level'];
@@ -209,7 +210,9 @@ export async function listTickets(f: {
   type?: Ticket['type'];
 }) {
   const where: Prisma.TicketWhereInput = {
-    status: f.status,
+    status:
+      f.status ??
+      (f.scope === 'active' ? { in: ['OPEN', 'IN_PROGRESS', 'WAITING_USER'] } : undefined),
     priority: f.priority,
     level: f.level,
     type: f.type,

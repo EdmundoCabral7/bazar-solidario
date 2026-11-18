@@ -126,6 +126,17 @@ describe('central de serviços', () => {
     expect(res.body.data.map((t: { priority: string }) => t.priority)).toEqual(['P1', 'P4']);
     expect(res.body.data[0].slaState).toBe('ON_TRACK');
   });
+
+  it('scope=active mostra só a fila de trabalho', async () => {
+    const { protocol } = (await request(app).post('/api/tickets').send(ticketBody)).body;
+    await request(app).post('/api/tickets').send(ticketBody);
+    const { id } = await prisma.ticket.findUniqueOrThrow({ where: { protocol } });
+    await request(app).patch(`/api/tickets/${id}/status`).set(auth()).send({ status: 'RESOLVED' });
+    const active = await request(app).get('/api/tickets?scope=active').set(auth());
+    const all = await request(app).get('/api/tickets').set(auth());
+    expect(active.body.total).toBe(1);
+    expect(all.body.total).toBe(2);
+  });
 });
 
 describe('relatório de SLA', () => {

@@ -139,7 +139,7 @@ export class MockMercadoPagoProvider implements PaymentProvider {
       externalReference: input.externalReference,
       amountCents: input.amountCents,
       // no mock, o "checkout" é uma página do próprio portal
-      checkoutUrl: `${env.WEB_URL}/doe/apadrinhar/checkout-simulado?assinatura=${externalId}`,
+      checkoutUrl: `${env.WEB_URL}/doe/apadrinhar/checkout-simulado?id=${input.externalReference}`,
     };
     this.subscriptions.set(externalId, sub);
     logger.info({ externalId }, '[mock MP] assinatura criada');
