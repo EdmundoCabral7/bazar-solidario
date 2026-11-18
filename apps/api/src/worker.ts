@@ -1,22 +1,33 @@
+import { env } from './config/env';
 import { logger } from './lib/logger';
 import { prisma } from './lib/prisma';
+import { processOutboxBatch } from './modules/notifications/outbox.worker';
+import { expirePendingOrders } from './modules/orders/orders.service';
 
 /**
- * Worker da NotificationOutbox (processo separado: `npm run worker`).
- * Fase 1: apenas faz polling e conta pendências. O envio com retentativas entra na Fase 2.
+ * Worker assíncrono (processo separado: `npm run worker`):
+ * - envia notificações da NotificationOutbox com retentativas e backoff exponencial;
+ * - cancela pedidos com Pix não pago após ORDER_PAYMENT_TTL_MINUTES (devolve o estoque).
+ * Vários workers podem rodar em paralelo (reserva com FOR UPDATE SKIP LOCKED).
  */
-const POLL_INTERVAL_MS = 5000;
+const POLL_INTERVAL_MS = 3000;
+const EXPIRATION_EVERY_MS = 60_000;
 let running = true;
+let lastExpiration = 0;
 
 async function tick() {
-  const pending = await prisma.notificationOutbox.count({
-    where: { status: 'PENDING', nextAttemptAt: { lte: new Date() } },
-  });
-  if (pending > 0) logger.info({ pending }, 'notificações pendentes na outbox');
+  const { claimed, sent, failed } = await processOutboxBatch();
+  if (claimed > 0) logger.info({ claimed, sent, failed }, 'lote da outbox processado');
+
+  if (Date.now() - lastExpiration > EXPIRATION_EVERY_MS) {
+    lastExpiration = Date.now();
+    const expired = await expirePendingOrders(env.ORDER_PAYMENT_TTL_MINUTES);
+    if (expired > 0) logger.info({ expired }, 'pedidos com pagamento expirado cancelados');
+  }
 }
 
 async function loop() {
-  logger.info('worker da outbox iniciado');
+  logger.info({ mode: env.INTEGRATIONS_MODE }, 'worker iniciado');
   while (running) {
     try {
       await tick();
@@ -26,6 +37,7 @@ async function loop() {
     await new Promise((r) => setTimeout(r, POLL_INTERVAL_MS));
   }
   await prisma.$disconnect();
+  logger.info('worker encerrado');
 }
 
 process.on('SIGINT', () => (running = false));
