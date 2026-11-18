@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { prisma } from '../../lib/prisma';
-import { getIntegrations } from '../../integrations/registry';
+import { integrationsHealth } from '../../integrations/registry';
 import { snapshot } from '../../lib/metrics';
 
 export const healthRoutes = Router();
@@ -15,7 +15,7 @@ healthRoutes.get('/health', async (_req, res) => {
   } catch (err) {
     database = { status: 'down', detail: (err as Error).message.split('\n')[0] };
   }
-  const integrations = await Promise.all(getIntegrations().map((i) => i.health()));
+  const integrations = await integrationsHealth();
   const status = database.status === 'up' ? 'ok' : 'degraded';
   res.status(status === 'ok' ? 200 : 503).json({
     status,
