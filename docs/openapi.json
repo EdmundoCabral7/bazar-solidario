@@ -117,16 +117,11 @@
     "schemas": {
       "Error": {
         "type": "object",
-        "required": [
-          "error"
-        ],
+        "required": ["error"],
         "properties": {
           "error": {
             "type": "object",
-            "required": [
-              "code",
-              "message"
-            ],
+            "required": ["code", "message"],
             "properties": {
               "code": {
                 "type": "string",
@@ -146,9 +141,7 @@
   "paths": {
     "/health": {
       "get": {
-        "tags": [
-          "Observabilidade"
-        ],
+        "tags": ["Observabilidade"],
         "summary": "Status da API, do banco e de cada integração (inclui estado do circuit breaker)",
         "parameters": [
           {
@@ -191,9 +184,7 @@
     },
     "/metrics": {
       "get": {
-        "tags": [
-          "Observabilidade"
-        ],
+        "tags": ["Observabilidade"],
         "summary": "Contadores básicos (HTTP, webhooks, pagamentos, outbox, chamadas externas, circuit breakers)",
         "parameters": [
           {
@@ -230,9 +221,7 @@
     },
     "/api/auth/login": {
       "post": {
-        "tags": [
-          "Autenticação"
-        ],
+        "tags": ["Autenticação"],
         "summary": "Login de usuário interno; retorna JWT",
         "parameters": [
           {
@@ -255,10 +244,7 @@
                     "minLength": 6
                   }
                 },
-                "required": [
-                  "email",
-                  "password"
-                ],
+                "required": ["email", "password"],
                 "additionalProperties": false
               },
               "example": {
@@ -338,9 +324,7 @@
     },
     "/api/auth/me": {
       "get": {
-        "tags": [
-          "Autenticação"
-        ],
+        "tags": ["Autenticação"],
         "summary": "Usuário autenticado",
         "security": [
           {
@@ -402,9 +386,7 @@
     },
     "/api/animals": {
       "get": {
-        "tags": [
-          "Catálogo"
-        ],
+        "tags": ["Catálogo"],
         "summary": "Animais para adoção (disponíveis e em processo)",
         "parameters": [
           {
@@ -437,10 +419,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "DOG",
-                "CAT"
-              ]
+              "enum": ["DOG", "CAT"]
             }
           },
           {
@@ -449,11 +428,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "SMALL",
-                "MEDIUM",
-                "LARGE"
-              ]
+              "enum": ["SMALL", "MEDIUM", "LARGE"]
             }
           },
           {
@@ -462,10 +437,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "MALE",
-                "FEMALE"
-              ]
+              "enum": ["MALE", "FEMALE"]
             }
           },
           {
@@ -474,11 +446,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "AVAILABLE",
-                "IN_ADOPTION",
-                "ADOPTED"
-              ]
+              "enum": ["AVAILABLE", "IN_ADOPTION", "ADOPTED"]
             }
           }
         ],
@@ -500,9 +468,7 @@
                       "neutered": true,
                       "vaccinated": true,
                       "description": "Dócil, adora passear e se dá bem com crianças.",
-                      "photos": [
-                        "https://placehold.co/800x600?text=Caramelo"
-                      ],
+                      "photos": ["https://placehold.co/800x600?text=Caramelo"],
                       "status": "AVAILABLE",
                       "activeSponsors": 2
                     }
@@ -520,9 +486,7 @@
     },
     "/api/animals/{slug}": {
       "get": {
-        "tags": [
-          "Catálogo"
-        ],
+        "tags": ["Catálogo"],
         "summary": "Detalhe do animal (URL compartilhável)",
         "parameters": [
           {
@@ -555,9 +519,7 @@
                   "neutered": true,
                   "vaccinated": true,
                   "description": "Dócil, adora passear e se dá bem com crianças.",
-                  "photos": [
-                    "https://placehold.co/800x600?text=Caramelo"
-                  ],
+                  "photos": ["https://placehold.co/800x600?text=Caramelo"],
                   "status": "AVAILABLE",
                   "activeSponsors": 2
                 }
@@ -585,9 +547,7 @@
     },
     "/api/products": {
       "get": {
-        "tags": [
-          "Catálogo"
-        ],
+        "tags": ["Catálogo"],
         "summary": "Peças do bazar à venda",
         "parameters": [
           {
@@ -636,12 +596,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "NEW",
-                "LIKE_NEW",
-                "GOOD",
-                "FAIR"
-              ]
+              "enum": ["NEW", "LIKE_NEW", "GOOD", "FAIR"]
             }
           },
           {
@@ -680,9 +635,7 @@
                       "size": "M",
                       "condition": "LIKE_NEW",
                       "priceCents": 2500,
-                      "photos": [
-                        "https://placehold.co/800x600?text=Camisa"
-                      ],
+                      "photos": ["https://placehold.co/800x600?text=Camisa"],
                       "stock": 1,
                       "weightGrams": 500,
                       "status": "ACTIVE"
@@ -701,9 +654,7 @@
     },
     "/api/products/categories": {
       "get": {
-        "tags": [
-          "Catálogo"
-        ],
+        "tags": ["Catálogo"],
         "summary": "Categorias com peças à venda",
         "parameters": [
           {
@@ -729,9 +680,7 @@
     },
     "/api/products/{slug}": {
       "get": {
-        "tags": [
-          "Catálogo"
-        ],
+        "tags": ["Catálogo"],
         "summary": "Detalhe da peça",
         "parameters": [
           {
@@ -762,9 +711,7 @@
                   "size": "M",
                   "condition": "LIKE_NEW",
                   "priceCents": 2500,
-                  "photos": [
-                    "https://placehold.co/800x600?text=Camisa"
-                  ],
+                  "photos": ["https://placehold.co/800x600?text=Camisa"],
                   "stock": 1,
                   "weightGrams": 500,
                   "status": "ACTIVE"
@@ -793,9 +740,7 @@
     },
     "/api/campaigns": {
       "get": {
-        "tags": [
-          "Catálogo"
-        ],
+        "tags": ["Catálogo"],
         "summary": "Campanhas ativas com progresso",
         "parameters": [
           {
@@ -824,9 +769,7 @@
     },
     "/api/campaigns/{slug}": {
       "get": {
-        "tags": [
-          "Catálogo"
-        ],
+        "tags": ["Catálogo"],
         "summary": "Detalhe da campanha",
         "parameters": [
           {
@@ -867,9 +810,7 @@
     },
     "/api/cep/{cep}": {
       "get": {
-        "tags": [
-          "Frete e CEP"
-        ],
+        "tags": ["Frete e CEP"],
         "summary": "Endereço pelo CEP (I03 — ViaCEP, com cache de 24 h)",
         "parameters": [
           {
@@ -938,9 +879,7 @@
     },
     "/api/shipping/quote": {
       "post": {
-        "tags": [
-          "Frete e CEP"
-        ],
+        "tags": ["Frete e CEP"],
         "summary": "Cotação de frete do carrinho (I02 — Melhor Envio)",
         "parameters": [
           {
@@ -973,19 +912,13 @@
                           "maximum": 20
                         }
                       },
-                      "required": [
-                        "productId",
-                        "quantity"
-                      ],
+                      "required": ["productId", "quantity"],
                       "additionalProperties": false
                     },
                     "minItems": 1
                   }
                 },
-                "required": [
-                  "cep",
-                  "items"
-                ],
+                "required": ["cep", "items"],
                 "additionalProperties": false
               },
               "example": {
@@ -1084,9 +1017,7 @@
     },
     "/api/orders": {
       "post": {
-        "tags": [
-          "Bazar — pedidos"
-        ],
+        "tags": ["Bazar — pedidos"],
         "summary": "Fecha o pedido e gera a cobrança (Pix ou cartão)",
         "description": "Reserva o estoque, recalcula o frete no servidor e cria o pagamento no gateway (I01). Com `Idempotency-Key` repetida devolve o mesmo pedido (200 + `Idempotent-Replayed: true`), sem nova cobrança. Rate limit: 20/min por IP. Em modo mock, cartão com token `mock-card-rejected` é recusado.",
         "parameters": [
@@ -1120,11 +1051,7 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "name",
-                      "email",
-                      "phone"
-                    ],
+                    "required": ["name", "email", "phone"],
                     "additionalProperties": false
                   },
                   "items": {
@@ -1142,10 +1069,7 @@
                           "maximum": 20
                         }
                       },
-                      "required": [
-                        "productId",
-                        "quantity"
-                      ],
+                      "required": ["productId", "quantity"],
                       "additionalProperties": false
                     },
                     "minItems": 1,
@@ -1158,14 +1082,10 @@
                         "properties": {
                           "type": {
                             "type": "string",
-                            "enum": [
-                              "PICKUP"
-                            ]
+                            "enum": ["PICKUP"]
                           }
                         },
-                        "required": [
-                          "type"
-                        ],
+                        "required": ["type"],
                         "additionalProperties": false
                       },
                       {
@@ -1173,9 +1093,7 @@
                         "properties": {
                           "type": {
                             "type": "string",
-                            "enum": [
-                              "SHIPPING"
-                            ]
+                            "enum": ["SHIPPING"]
                           },
                           "cep": {
                             "type": "string",
@@ -1233,14 +1151,10 @@
                         "properties": {
                           "method": {
                             "type": "string",
-                            "enum": [
-                              "PIX"
-                            ]
+                            "enum": ["PIX"]
                           }
                         },
-                        "required": [
-                          "method"
-                        ],
+                        "required": ["method"],
                         "additionalProperties": false
                       },
                       {
@@ -1248,9 +1162,7 @@
                         "properties": {
                           "method": {
                             "type": "string",
-                            "enum": [
-                              "CARD"
-                            ]
+                            "enum": ["CARD"]
                           },
                           "cardToken": {
                             "type": "string",
@@ -1268,28 +1180,17 @@
                             "default": 1
                           }
                         },
-                        "required": [
-                          "method",
-                          "cardToken"
-                        ],
+                        "required": ["method", "cardToken"],
                         "additionalProperties": false
                       }
                     ]
                   },
                   "consent": {
                     "type": "boolean",
-                    "enum": [
-                      true
-                    ]
+                    "enum": [true]
                   }
                 },
-                "required": [
-                  "customer",
-                  "items",
-                  "delivery",
-                  "payment",
-                  "consent"
-                ],
+                "required": ["customer", "items", "delivery", "payment", "consent"],
                 "additionalProperties": false
               },
               "example": {
@@ -1488,9 +1389,7 @@
     },
     "/api/orders/{code}": {
       "get": {
-        "tags": [
-          "Bazar — pedidos"
-        ],
+        "tags": ["Bazar — pedidos"],
         "summary": "Acompanhamento do pedido pelo código (e-mail mascarado)",
         "parameters": [
           {
@@ -1576,9 +1475,7 @@
     },
     "/api/donations": {
       "post": {
-        "tags": [
-          "Doações e apadrinhamento"
-        ],
+        "tags": ["Doações e apadrinhamento"],
         "summary": "Doação avulsa (Pix ou cartão), opcionalmente para uma campanha",
         "parameters": [
           {
@@ -1623,14 +1520,10 @@
                         "properties": {
                           "method": {
                             "type": "string",
-                            "enum": [
-                              "PIX"
-                            ]
+                            "enum": ["PIX"]
                           }
                         },
-                        "required": [
-                          "method"
-                        ],
+                        "required": ["method"],
                         "additionalProperties": false
                       },
                       {
@@ -1638,9 +1531,7 @@
                         "properties": {
                           "method": {
                             "type": "string",
-                            "enum": [
-                              "CARD"
-                            ]
+                            "enum": ["CARD"]
                           },
                           "cardToken": {
                             "type": "string",
@@ -1658,10 +1549,7 @@
                             "default": 1
                           }
                         },
-                        "required": [
-                          "method",
-                          "cardToken"
-                        ],
+                        "required": ["method", "cardToken"],
                         "additionalProperties": false
                       }
                     ]
@@ -1671,10 +1559,7 @@
                     "default": false
                   }
                 },
-                "required": [
-                  "amountCents",
-                  "payment"
-                ],
+                "required": ["amountCents", "payment"],
                 "additionalProperties": false
               },
               "example": {
@@ -1754,9 +1639,7 @@
     },
     "/api/donations/{id}": {
       "get": {
-        "tags": [
-          "Doações e apadrinhamento"
-        ],
+        "tags": ["Doações e apadrinhamento"],
         "summary": "Status da doação (o portal consulta até o Pix ser pago)",
         "parameters": [
           {
@@ -1797,9 +1680,7 @@
     },
     "/api/sponsorships": {
       "post": {
-        "tags": [
-          "Doações e apadrinhamento"
-        ],
+        "tags": ["Doações e apadrinhamento"],
         "summary": "Apadrinhamento mensal (assinatura recorrente — preapproval do Mercado Pago)",
         "description": "Cria a assinatura no gateway e devolve `checkoutUrl` para o padrinho autorizar. A ativação chega por webhook `subscription_preapproval`.",
         "parameters": [
@@ -1823,11 +1704,7 @@
                   },
                   "plan": {
                     "type": "string",
-                    "enum": [
-                      "P20",
-                      "P50",
-                      "P100"
-                    ]
+                    "enum": ["P20", "P50", "P100"]
                   },
                   "sponsorName": {
                     "type": "string",
@@ -1840,18 +1717,10 @@
                   },
                   "consent": {
                     "type": "boolean",
-                    "enum": [
-                      true
-                    ]
+                    "enum": [true]
                   }
                 },
-                "required": [
-                  "animalSlug",
-                  "plan",
-                  "sponsorName",
-                  "sponsorEmail",
-                  "consent"
-                ],
+                "required": ["animalSlug", "plan", "sponsorName", "sponsorEmail", "consent"],
                 "additionalProperties": false
               },
               "example": {
@@ -1920,9 +1789,7 @@
     },
     "/api/sponsorships/{id}": {
       "get": {
-        "tags": [
-          "Doações e apadrinhamento"
-        ],
+        "tags": ["Doações e apadrinhamento"],
         "summary": "Status do apadrinhamento",
         "parameters": [
           {
@@ -1963,9 +1830,7 @@
     },
     "/api/sponsorships/{id}/cancel": {
       "post": {
-        "tags": [
-          "Doações e apadrinhamento"
-        ],
+        "tags": ["Doações e apadrinhamento"],
         "summary": "Cancelamento pelo padrinho (confirma pelo e-mail)",
         "parameters": [
           {
@@ -1993,9 +1858,7 @@
                     "format": "email"
                   }
                 },
-                "required": [
-                  "email"
-                ],
+                "required": ["email"],
                 "additionalProperties": false
               },
               "example": {
@@ -2053,9 +1916,7 @@
     },
     "/api/adoptions": {
       "post": {
-        "tags": [
-          "Adoção"
-        ],
+        "tags": ["Adoção"],
         "summary": "Solicitação de adoção com questionário de triagem (consentimento LGPD obrigatório)",
         "parameters": [
           {
@@ -2095,11 +1956,7 @@
                     "properties": {
                       "housingType": {
                         "type": "string",
-                        "enum": [
-                          "HOUSE",
-                          "APARTMENT",
-                          "OTHER"
-                        ]
+                        "enum": ["HOUSE", "APARTMENT", "OTHER"]
                       },
                       "ownsHome": {
                         "type": "boolean"
@@ -2124,9 +1981,7 @@
                       },
                       "allResidentsAgree": {
                         "type": "boolean",
-                        "enum": [
-                          true
-                        ]
+                        "enum": [true]
                       },
                       "canAffordCosts": {
                         "type": "boolean"
@@ -2152,9 +2007,7 @@
                   },
                   "consent": {
                     "type": "boolean",
-                    "enum": [
-                      true
-                    ]
+                    "enum": [true]
                   }
                 },
                 "required": [
@@ -2243,9 +2096,7 @@
     },
     "/api/adoptions/{code}": {
       "get": {
-        "tags": [
-          "Adoção"
-        ],
+        "tags": ["Adoção"],
         "summary": "Acompanhamento da solicitação pelo protocolo",
         "parameters": [
           {
@@ -2299,9 +2150,7 @@
     },
     "/api/transparency": {
       "get": {
-        "tags": [
-          "Transparência"
-        ],
+        "tags": ["Transparência"],
         "summary": "Arrecadado × gasto por mês e por categoria (somente dados agregados)",
         "parameters": [
           {
@@ -2366,9 +2215,7 @@
     },
     "/api/it-services": {
       "get": {
-        "tags": [
-          "Central de serviços"
-        ],
+        "tags": ["Central de serviços"],
         "summary": "Catálogo de serviços de TI (S01–S08) e tabela de SLA",
         "parameters": [
           {
@@ -2411,9 +2258,7 @@
     },
     "/api/tickets": {
       "post": {
-        "tags": [
-          "Central de serviços"
-        ],
+        "tags": ["Central de serviços"],
         "summary": "Abre chamado pelo portal (sem login). Prioridade = matriz impacto × urgência",
         "parameters": [
           {
@@ -2429,23 +2274,11 @@
                 "properties": {
                   "serviceCode": {
                     "type": "string",
-                    "enum": [
-                      "S01",
-                      "S02",
-                      "S03",
-                      "S04",
-                      "S05",
-                      "S06",
-                      "S07",
-                      "S08"
-                    ]
+                    "enum": ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08"]
                   },
                   "type": {
                     "type": "string",
-                    "enum": [
-                      "INCIDENT",
-                      "SERVICE_REQUEST"
-                    ]
+                    "enum": ["INCIDENT", "SERVICE_REQUEST"]
                   },
                   "title": {
                     "type": "string",
@@ -2468,19 +2301,11 @@
                   },
                   "impact": {
                     "type": "string",
-                    "enum": [
-                      "LOW",
-                      "MEDIUM",
-                      "HIGH"
-                    ]
+                    "enum": ["LOW", "MEDIUM", "HIGH"]
                   },
                   "urgency": {
                     "type": "string",
-                    "enum": [
-                      "LOW",
-                      "MEDIUM",
-                      "HIGH"
-                    ]
+                    "enum": ["LOW", "MEDIUM", "HIGH"]
                   }
                 },
                 "required": [
@@ -2542,9 +2367,7 @@
         }
       },
       "get": {
-        "tags": [
-          "Central de serviços (interno)"
-        ],
+        "tags": ["Central de serviços (interno)"],
         "summary": "Fila de chamados com indicador de SLA (ON_TRACK, AT_RISK, VIOLATED, MET)",
         "security": [
           {
@@ -2582,10 +2405,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "active",
-                "all"
-              ],
+              "enum": ["active", "all"],
               "default": "all"
             }
           },
@@ -2595,13 +2415,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "OPEN",
-                "IN_PROGRESS",
-                "WAITING_USER",
-                "RESOLVED",
-                "CLOSED"
-              ]
+              "enum": ["OPEN", "IN_PROGRESS", "WAITING_USER", "RESOLVED", "CLOSED"]
             }
           },
           {
@@ -2610,12 +2424,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "P1",
-                "P2",
-                "P3",
-                "P4"
-              ]
+              "enum": ["P1", "P2", "P3", "P4"]
             }
           },
           {
@@ -2624,11 +2433,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "N1",
-                "N2",
-                "N3"
-              ]
+              "enum": ["N1", "N2", "N3"]
             }
           },
           {
@@ -2637,16 +2442,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "S01",
-                "S02",
-                "S03",
-                "S04",
-                "S05",
-                "S06",
-                "S07",
-                "S08"
-              ]
+              "enum": ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08"]
             }
           },
           {
@@ -2655,11 +2451,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "INCIDENT",
-                "SERVICE_REQUEST",
-                "PROBLEM"
-              ]
+              "enum": ["INCIDENT", "SERVICE_REQUEST", "PROBLEM"]
             }
           }
         ],
@@ -2732,9 +2524,7 @@
     },
     "/api/tickets/protocol/{protocol}": {
       "get": {
-        "tags": [
-          "Central de serviços"
-        ],
+        "tags": ["Central de serviços"],
         "summary": "Acompanhamento público pelo protocolo",
         "parameters": [
           {
@@ -2776,9 +2566,7 @@
     },
     "/api/tickets/protocol/{protocol}/reply": {
       "post": {
-        "tags": [
-          "Central de serviços"
-        ],
+        "tags": ["Central de serviços"],
         "summary": "Resposta do solicitante (WAITING_USER volta para IN_PROGRESS)",
         "parameters": [
           {
@@ -2811,10 +2599,7 @@
                     "maxLength": 2000
                   }
                 },
-                "required": [
-                  "email",
-                  "message"
-                ],
+                "required": ["email", "message"],
                 "additionalProperties": false
               },
               "example": {
@@ -2865,9 +2650,7 @@
     },
     "/api/tickets/internal": {
       "post": {
-        "tags": [
-          "Central de serviços (interno)"
-        ],
+        "tags": ["Central de serviços (interno)"],
         "summary": "Abre chamado interno (inclui tipo PROBLEM)",
         "security": [
           {
@@ -2888,24 +2671,11 @@
                 "properties": {
                   "serviceCode": {
                     "type": "string",
-                    "enum": [
-                      "S01",
-                      "S02",
-                      "S03",
-                      "S04",
-                      "S05",
-                      "S06",
-                      "S07",
-                      "S08"
-                    ]
+                    "enum": ["S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08"]
                   },
                   "type": {
                     "type": "string",
-                    "enum": [
-                      "INCIDENT",
-                      "SERVICE_REQUEST",
-                      "PROBLEM"
-                    ]
+                    "enum": ["INCIDENT", "SERVICE_REQUEST", "PROBLEM"]
                   },
                   "title": {
                     "type": "string",
@@ -2928,19 +2698,11 @@
                   },
                   "impact": {
                     "type": "string",
-                    "enum": [
-                      "LOW",
-                      "MEDIUM",
-                      "HIGH"
-                    ]
+                    "enum": ["LOW", "MEDIUM", "HIGH"]
                   },
                   "urgency": {
                     "type": "string",
-                    "enum": [
-                      "LOW",
-                      "MEDIUM",
-                      "HIGH"
-                    ]
+                    "enum": ["LOW", "MEDIUM", "HIGH"]
                   }
                 },
                 "required": [
@@ -3035,9 +2797,7 @@
     },
     "/api/tickets/sla-report": {
       "get": {
-        "tags": [
-          "Central de serviços (interno)"
-        ],
+        "tags": ["Central de serviços (interno)"],
         "summary": "Relatório de SLA do período",
         "description": "Total por prioridade, % dentro do prazo de resposta e de resolução, tempos médios, quebra por serviço e lista de chamados violados.",
         "security": [
@@ -3120,9 +2880,7 @@
                       "title": "Checkout fora do ar",
                       "priority": "P1",
                       "service": "S01",
-                      "violated": [
-                        "RESOLUTION"
-                      ]
+                      "violated": ["RESOLUTION"]
                     }
                   ]
                 }
@@ -3166,9 +2924,7 @@
     },
     "/api/tickets/{id}": {
       "get": {
-        "tags": [
-          "Central de serviços (interno)"
-        ],
+        "tags": ["Central de serviços (interno)"],
         "summary": "Detalhe do chamado com histórico, problema e incidentes vinculados",
         "security": [
           {
@@ -3256,9 +3012,7 @@
     },
     "/api/tickets/{id}/status": {
       "patch": {
-        "tags": [
-          "Central de serviços (interno)"
-        ],
+        "tags": ["Central de serviços (interno)"],
         "summary": "Muda status (registra 1ª resposta; RESOLVED/CLOSED marcam datas)",
         "security": [
           {
@@ -3288,22 +3042,14 @@
                 "properties": {
                   "status": {
                     "type": "string",
-                    "enum": [
-                      "OPEN",
-                      "IN_PROGRESS",
-                      "WAITING_USER",
-                      "RESOLVED",
-                      "CLOSED"
-                    ]
+                    "enum": ["OPEN", "IN_PROGRESS", "WAITING_USER", "RESOLVED", "CLOSED"]
                   },
                   "message": {
                     "type": "string",
                     "maxLength": 2000
                   }
                 },
-                "required": [
-                  "status"
-                ],
+                "required": ["status"],
                 "additionalProperties": false
               },
               "example": {
@@ -3386,9 +3132,7 @@
     },
     "/api/tickets/{id}/escalate": {
       "post": {
-        "tags": [
-          "Central de serviços (interno)"
-        ],
+        "tags": ["Central de serviços (interno)"],
         "summary": "Escalonamento N1 → N2 → N3 (registra TicketEvent)",
         "security": [
           {
@@ -3418,11 +3162,7 @@
                 "properties": {
                   "toLevel": {
                     "type": "string",
-                    "enum": [
-                      "N1",
-                      "N2",
-                      "N3"
-                    ]
+                    "enum": ["N1", "N2", "N3"]
                   },
                   "reason": {
                     "type": "string",
@@ -3430,10 +3170,7 @@
                     "maxLength": 1000
                   }
                 },
-                "required": [
-                  "toLevel",
-                  "reason"
-                ],
+                "required": ["toLevel", "reason"],
                 "additionalProperties": false
               },
               "example": {
@@ -3516,9 +3253,7 @@
     },
     "/api/tickets/{id}/assign": {
       "post": {
-        "tags": [
-          "Central de serviços (interno)"
-        ],
+        "tags": ["Central de serviços (interno)"],
         "summary": "Atribui responsável (null remove)",
         "security": [
           {
@@ -3552,9 +3287,7 @@
                     "nullable": true
                   }
                 },
-                "required": [
-                  "assigneeId"
-                ],
+                "required": ["assigneeId"],
                 "additionalProperties": false
               }
             }
@@ -3617,9 +3350,7 @@
     },
     "/api/tickets/{id}/comments": {
       "post": {
-        "tags": [
-          "Central de serviços (interno)"
-        ],
+        "tags": ["Central de serviços (interno)"],
         "summary": "Comentário da equipe (notifica o solicitante)",
         "security": [
           {
@@ -3653,9 +3384,7 @@
                     "maxLength": 2000
                   }
                 },
-                "required": [
-                  "message"
-                ],
+                "required": ["message"],
                 "additionalProperties": false
               }
             }
@@ -3718,9 +3447,7 @@
     },
     "/api/tickets/{id}/problem": {
       "post": {
-        "tags": [
-          "Central de serviços (interno)"
-        ],
+        "tags": ["Central de serviços (interno)"],
         "summary": "Vincula incidente a um problema (gerenciamento de problemas)",
         "security": [
           {
@@ -3754,9 +3481,7 @@
                     "nullable": true
                   }
                 },
-                "required": [
-                  "problemId"
-                ],
+                "required": ["problemId"],
                 "additionalProperties": false
               }
             }
@@ -3819,9 +3544,7 @@
     },
     "/api/webhooks/mercadopago": {
       "post": {
-        "tags": [
-          "Integrações — webhooks"
-        ],
+        "tags": ["Integrações — webhooks"],
         "summary": "Webhook do Mercado Pago (pagamentos e assinaturas)",
         "description": "1) Valida `x-signature` (HMAC-SHA256 de `id:<data.id>;request-id:<x-request-id>;ts:<ts>;`). 2) Registra `WebhookEvent` com chave única — notificação repetida responde `duplicate`. 3) Consulta o recurso no gateway (não confia no corpo). 4) Aplica a transição de status de forma idempotente. Tipos tratados: `payment`, `subscription_preapproval`, `subscription_authorized_payment`.",
         "parameters": [
@@ -3948,9 +3671,7 @@
     },
     "/api/dev/payments/{id}/simulate": {
       "post": {
-        "tags": [
-          "Integrações — simulador (mock)"
-        ],
+        "tags": ["Integrações — simulador (mock)"],
         "summary": "Simula aprovação/recusa de um pagamento disparando o MESMO fluxo do webhook",
         "description": "Disponível somente com `INTEGRATIONS_MODE=mock`. Gera uma notificação assinada e a processa como o webhook real.",
         "parameters": [
@@ -3976,15 +3697,10 @@
                 "properties": {
                   "status": {
                     "type": "string",
-                    "enum": [
-                      "APPROVED",
-                      "REJECTED"
-                    ]
+                    "enum": ["APPROVED", "REJECTED"]
                   }
                 },
-                "required": [
-                  "status"
-                ],
+                "required": ["status"],
                 "additionalProperties": false
               },
               "example": {
@@ -4053,9 +3769,7 @@
     },
     "/api/dev/sponsorships/{id}/simulate": {
       "post": {
-        "tags": [
-          "Integrações — simulador (mock)"
-        ],
+        "tags": ["Integrações — simulador (mock)"],
         "summary": "Simula eventos da assinatura: AUTHORIZE (ativa), CHARGE (mensalidade), CANCEL",
         "parameters": [
           {
@@ -4080,16 +3794,10 @@
                 "properties": {
                   "event": {
                     "type": "string",
-                    "enum": [
-                      "AUTHORIZE",
-                      "CHARGE",
-                      "CANCEL"
-                    ]
+                    "enum": ["AUTHORIZE", "CHARGE", "CANCEL"]
                   }
                 },
-                "required": [
-                  "event"
-                ],
+                "required": ["event"],
                 "additionalProperties": false
               },
               "example": {
@@ -4136,9 +3844,7 @@
     },
     "/api/public/v1/animals": {
       "get": {
-        "tags": [
-          "API pública v1 (parceiros)"
-        ],
+        "tags": ["API pública v1 (parceiros)"],
         "summary": "Animais disponíveis para adoção",
         "security": [
           {
@@ -4176,10 +3882,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "DOG",
-                "CAT"
-              ]
+              "enum": ["DOG", "CAT"]
             }
           },
           {
@@ -4188,11 +3891,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "SMALL",
-                "MEDIUM",
-                "LARGE"
-              ]
+              "enum": ["SMALL", "MEDIUM", "LARGE"]
             }
           }
         ],
@@ -4258,9 +3957,7 @@
     },
     "/api/public/v1/animals/{id}": {
       "get": {
-        "tags": [
-          "API pública v1 (parceiros)"
-        ],
+        "tags": ["API pública v1 (parceiros)"],
         "summary": "Detalhe de um animal",
         "security": [
           {
@@ -4339,9 +4036,7 @@
     },
     "/api/public/v1/campaigns": {
       "get": {
-        "tags": [
-          "API pública v1 (parceiros)"
-        ],
+        "tags": ["API pública v1 (parceiros)"],
         "summary": "Campanhas ativas",
         "security": [
           {
@@ -4410,9 +4105,7 @@
     },
     "/api/admin/dashboard": {
       "get": {
-        "tags": [
-          "Admin"
-        ],
+        "tags": ["Admin"],
         "summary": "Indicadores do mês (vendas, doações, padrinhos, adoções, chamados, outbox)",
         "security": [
           {
@@ -4501,9 +4194,7 @@
     },
     "/api/admin/animals": {
       "get": {
-        "tags": [
-          "Admin — catálogo"
-        ],
+        "tags": ["Admin — catálogo"],
         "summary": "Lista animais (todos os status)",
         "security": [
           {
@@ -4541,10 +4232,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "DOG",
-                "CAT"
-              ]
+              "enum": ["DOG", "CAT"]
             }
           },
           {
@@ -4553,11 +4241,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "SMALL",
-                "MEDIUM",
-                "LARGE"
-              ]
+              "enum": ["SMALL", "MEDIUM", "LARGE"]
             }
           },
           {
@@ -4566,10 +4250,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "MALE",
-                "FEMALE"
-              ]
+              "enum": ["MALE", "FEMALE"]
             }
           },
           {
@@ -4578,11 +4259,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "AVAILABLE",
-                "IN_ADOPTION",
-                "ADOPTED"
-              ]
+              "enum": ["AVAILABLE", "IN_ADOPTION", "ADOPTED"]
             }
           }
         ],
@@ -4604,9 +4281,7 @@
                       "neutered": true,
                       "vaccinated": true,
                       "description": "Dócil, adora passear e se dá bem com crianças.",
-                      "photos": [
-                        "https://placehold.co/800x600?text=Caramelo"
-                      ],
+                      "photos": ["https://placehold.co/800x600?text=Caramelo"],
                       "status": "AVAILABLE",
                       "activeSponsors": 2
                     }
@@ -4654,9 +4329,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Admin — catálogo"
-        ],
+        "tags": ["Admin — catálogo"],
         "summary": "Cadastra animal (slug gerado do nome)",
         "security": [
           {
@@ -4682,10 +4355,7 @@
                   },
                   "species": {
                     "type": "string",
-                    "enum": [
-                      "DOG",
-                      "CAT"
-                    ]
+                    "enum": ["DOG", "CAT"]
                   },
                   "ageMonths": {
                     "type": "integer",
@@ -4694,18 +4364,11 @@
                   },
                   "size": {
                     "type": "string",
-                    "enum": [
-                      "SMALL",
-                      "MEDIUM",
-                      "LARGE"
-                    ]
+                    "enum": ["SMALL", "MEDIUM", "LARGE"]
                   },
                   "sex": {
                     "type": "string",
-                    "enum": [
-                      "MALE",
-                      "FEMALE"
-                    ]
+                    "enum": ["MALE", "FEMALE"]
                   },
                   "neutered": {
                     "type": "boolean",
@@ -4731,22 +4394,11 @@
                   },
                   "status": {
                     "type": "string",
-                    "enum": [
-                      "AVAILABLE",
-                      "IN_ADOPTION",
-                      "ADOPTED"
-                    ],
+                    "enum": ["AVAILABLE", "IN_ADOPTION", "ADOPTED"],
                     "default": "AVAILABLE"
                   }
                 },
-                "required": [
-                  "name",
-                  "species",
-                  "ageMonths",
-                  "size",
-                  "sex",
-                  "description"
-                ],
+                "required": ["name", "species", "ageMonths", "size", "sex", "description"],
                 "additionalProperties": false
               }
             }
@@ -4768,9 +4420,7 @@
                   "neutered": true,
                   "vaccinated": true,
                   "description": "Dócil, adora passear e se dá bem com crianças.",
-                  "photos": [
-                    "https://placehold.co/800x600?text=Caramelo"
-                  ],
+                  "photos": ["https://placehold.co/800x600?text=Caramelo"],
                   "status": "AVAILABLE",
                   "activeSponsors": 2
                 }
@@ -4830,9 +4480,7 @@
     },
     "/api/admin/animals/{id}": {
       "patch": {
-        "tags": [
-          "Admin — catálogo"
-        ],
+        "tags": ["Admin — catálogo"],
         "summary": "Atualiza animal",
         "security": [
           {
@@ -4867,10 +4515,7 @@
                   },
                   "species": {
                     "type": "string",
-                    "enum": [
-                      "DOG",
-                      "CAT"
-                    ]
+                    "enum": ["DOG", "CAT"]
                   },
                   "ageMonths": {
                     "type": "integer",
@@ -4879,18 +4524,11 @@
                   },
                   "size": {
                     "type": "string",
-                    "enum": [
-                      "SMALL",
-                      "MEDIUM",
-                      "LARGE"
-                    ]
+                    "enum": ["SMALL", "MEDIUM", "LARGE"]
                   },
                   "sex": {
                     "type": "string",
-                    "enum": [
-                      "MALE",
-                      "FEMALE"
-                    ]
+                    "enum": ["MALE", "FEMALE"]
                   },
                   "neutered": {
                     "type": "boolean",
@@ -4916,11 +4554,7 @@
                   },
                   "status": {
                     "type": "string",
-                    "enum": [
-                      "AVAILABLE",
-                      "IN_ADOPTION",
-                      "ADOPTED"
-                    ],
+                    "enum": ["AVAILABLE", "IN_ADOPTION", "ADOPTED"],
                     "default": "AVAILABLE"
                   }
                 },
@@ -4984,9 +4618,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Admin — catálogo"
-        ],
+        "tags": ["Admin — catálogo"],
         "summary": "Exclui animal sem vínculos",
         "security": [
           {
@@ -5064,9 +4696,7 @@
     },
     "/api/admin/products": {
       "get": {
-        "tags": [
-          "Admin — catálogo"
-        ],
+        "tags": ["Admin — catálogo"],
         "summary": "Lista peças (todos os status)",
         "security": [
           {
@@ -5120,12 +4750,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "NEW",
-                "LIKE_NEW",
-                "GOOD",
-                "FAIR"
-              ]
+              "enum": ["NEW", "LIKE_NEW", "GOOD", "FAIR"]
             }
           },
           {
@@ -5164,9 +4789,7 @@
                       "size": "M",
                       "condition": "LIKE_NEW",
                       "priceCents": 2500,
-                      "photos": [
-                        "https://placehold.co/800x600?text=Camisa"
-                      ],
+                      "photos": ["https://placehold.co/800x600?text=Camisa"],
                       "stock": 1,
                       "weightGrams": 500,
                       "status": "ACTIVE"
@@ -5215,9 +4838,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Admin — catálogo"
-        ],
+        "tags": ["Admin — catálogo"],
         "summary": "Cadastra peça",
         "security": [
           {
@@ -5258,12 +4879,7 @@
                   },
                   "condition": {
                     "type": "string",
-                    "enum": [
-                      "NEW",
-                      "LIKE_NEW",
-                      "GOOD",
-                      "FAIR"
-                    ]
+                    "enum": ["NEW", "LIKE_NEW", "GOOD", "FAIR"]
                   },
                   "priceCents": {
                     "type": "integer",
@@ -5291,21 +4907,11 @@
                   },
                   "status": {
                     "type": "string",
-                    "enum": [
-                      "ACTIVE",
-                      "SOLD",
-                      "HIDDEN"
-                    ],
+                    "enum": ["ACTIVE", "SOLD", "HIDDEN"],
                     "default": "ACTIVE"
                   }
                 },
-                "required": [
-                  "title",
-                  "description",
-                  "category",
-                  "condition",
-                  "priceCents"
-                ],
+                "required": ["title", "description", "category", "condition", "priceCents"],
                 "additionalProperties": false
               }
             }
@@ -5325,9 +4931,7 @@
                   "size": "M",
                   "condition": "LIKE_NEW",
                   "priceCents": 2500,
-                  "photos": [
-                    "https://placehold.co/800x600?text=Camisa"
-                  ],
+                  "photos": ["https://placehold.co/800x600?text=Camisa"],
                   "stock": 1,
                   "weightGrams": 500,
                   "status": "ACTIVE"
@@ -5388,9 +4992,7 @@
     },
     "/api/admin/products/{id}": {
       "patch": {
-        "tags": [
-          "Admin — catálogo"
-        ],
+        "tags": ["Admin — catálogo"],
         "summary": "Atualiza peça",
         "security": [
           {
@@ -5440,12 +5042,7 @@
                   },
                   "condition": {
                     "type": "string",
-                    "enum": [
-                      "NEW",
-                      "LIKE_NEW",
-                      "GOOD",
-                      "FAIR"
-                    ]
+                    "enum": ["NEW", "LIKE_NEW", "GOOD", "FAIR"]
                   },
                   "priceCents": {
                     "type": "integer",
@@ -5473,11 +5070,7 @@
                   },
                   "status": {
                     "type": "string",
-                    "enum": [
-                      "ACTIVE",
-                      "SOLD",
-                      "HIDDEN"
-                    ],
+                    "enum": ["ACTIVE", "SOLD", "HIDDEN"],
                     "default": "ACTIVE"
                   }
                 },
@@ -5541,9 +5134,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Admin — catálogo"
-        ],
+        "tags": ["Admin — catálogo"],
         "summary": "Exclui peça (ou oculta, se já teve pedidos)",
         "security": [
           {
@@ -5612,9 +5203,7 @@
     },
     "/api/admin/campaigns": {
       "get": {
-        "tags": [
-          "Admin — catálogo"
-        ],
+        "tags": ["Admin — catálogo"],
         "summary": "Lista campanhas",
         "security": [
           {
@@ -5665,9 +5254,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Admin — catálogo"
-        ],
+        "tags": ["Admin — catálogo"],
         "summary": "Cria campanha",
         "security": [
           {
@@ -5715,12 +5302,7 @@
                     "default": true
                   }
                 },
-                "required": [
-                  "title",
-                  "description",
-                  "goalCents",
-                  "startsAt"
-                ],
+                "required": ["title", "description", "goalCents", "startsAt"],
                 "additionalProperties": false
               }
             }
@@ -5783,9 +5365,7 @@
     },
     "/api/admin/campaigns/{id}": {
       "patch": {
-        "tags": [
-          "Admin — catálogo"
-        ],
+        "tags": ["Admin — catálogo"],
         "summary": "Atualiza campanha",
         "security": [
           {
@@ -5904,9 +5484,7 @@
     },
     "/api/admin/orders": {
       "get": {
-        "tags": [
-          "Admin — pedidos"
-        ],
+        "tags": ["Admin — pedidos"],
         "summary": "Lista pedidos",
         "security": [
           {
@@ -5944,13 +5522,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "PENDING_PAYMENT",
-                "PAID",
-                "SHIPPED",
-                "DELIVERED",
-                "CANCELED"
-              ]
+              "enum": ["PENDING_PAYMENT", "PAID", "SHIPPED", "DELIVERED", "CANCELED"]
             }
           }
         ],
@@ -6048,9 +5620,7 @@
     },
     "/api/admin/orders/{id}": {
       "get": {
-        "tags": [
-          "Admin — pedidos"
-        ],
+        "tags": ["Admin — pedidos"],
         "summary": "Detalhe do pedido",
         "security": [
           {
@@ -6157,9 +5727,7 @@
     },
     "/api/admin/orders/{id}/status": {
       "patch": {
-        "tags": [
-          "Admin — pedidos"
-        ],
+        "tags": ["Admin — pedidos"],
         "summary": "Muda status (PAID → SHIPPED → DELIVERED, ou CANCELED) e notifica o comprador",
         "security": [
           {
@@ -6189,22 +5757,14 @@
                 "properties": {
                   "status": {
                     "type": "string",
-                    "enum": [
-                      "PENDING_PAYMENT",
-                      "PAID",
-                      "SHIPPED",
-                      "DELIVERED",
-                      "CANCELED"
-                    ]
+                    "enum": ["PENDING_PAYMENT", "PAID", "SHIPPED", "DELIVERED", "CANCELED"]
                   },
                   "trackingCode": {
                     "type": "string",
                     "maxLength": 40
                   }
                 },
-                "required": [
-                  "status"
-                ],
+                "required": ["status"],
                 "additionalProperties": false
               },
               "example": {
@@ -6287,9 +5847,7 @@
     },
     "/api/admin/adoptions": {
       "get": {
-        "tags": [
-          "Admin — adoções"
-        ],
+        "tags": ["Admin — adoções"],
         "summary": "Lista solicitações de adoção",
         "security": [
           {
@@ -6327,13 +5885,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "RECEIVED",
-                "IN_REVIEW",
-                "INTERVIEW",
-                "APPROVED",
-                "REJECTED"
-              ]
+              "enum": ["RECEIVED", "IN_REVIEW", "INTERVIEW", "APPROVED", "REJECTED"]
             }
           }
         ],
@@ -6378,9 +5930,7 @@
     },
     "/api/admin/adoptions/{id}": {
       "get": {
-        "tags": [
-          "Admin — adoções"
-        ],
+        "tags": ["Admin — adoções"],
         "summary": "Detalhe com questionário",
         "security": [
           {
@@ -6442,9 +5992,7 @@
     },
     "/api/admin/adoptions/{id}/status": {
       "patch": {
-        "tags": [
-          "Admin — adoções"
-        ],
+        "tags": ["Admin — adoções"],
         "summary": "Triagem: RECEIVED → IN_REVIEW → INTERVIEW → APPROVED (ou REJECTED)",
         "description": "APPROVED marca o animal como ADOPTED e recusa as demais solicitações abertas.",
         "security": [
@@ -6475,22 +6023,14 @@
                 "properties": {
                   "status": {
                     "type": "string",
-                    "enum": [
-                      "RECEIVED",
-                      "IN_REVIEW",
-                      "INTERVIEW",
-                      "APPROVED",
-                      "REJECTED"
-                    ]
+                    "enum": ["RECEIVED", "IN_REVIEW", "INTERVIEW", "APPROVED", "REJECTED"]
                   },
                   "notes": {
                     "type": "string",
                     "maxLength": 2000
                   }
                 },
-                "required": [
-                  "status"
-                ],
+                "required": ["status"],
                 "additionalProperties": false
               }
             }
@@ -6569,9 +6109,7 @@
     },
     "/api/admin/expenses": {
       "get": {
-        "tags": [
-          "Admin — tesouraria"
-        ],
+        "tags": ["Admin — tesouraria"],
         "summary": "Lista despesas",
         "security": [
           {
@@ -6609,13 +6147,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "RACAO",
-                "VETERINARIO",
-                "CASTRACAO",
-                "MANUTENCAO",
-                "OUTROS"
-              ]
+              "enum": ["RACAO", "VETERINARIO", "CASTRACAO", "MANUTENCAO", "OUTROS"]
             }
           }
         ],
@@ -6658,9 +6190,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Admin — tesouraria"
-        ],
+        "tags": ["Admin — tesouraria"],
         "summary": "Registra despesa",
         "security": [
           {
@@ -6681,13 +6211,7 @@
                 "properties": {
                   "category": {
                     "type": "string",
-                    "enum": [
-                      "RACAO",
-                      "VETERINARIO",
-                      "CASTRACAO",
-                      "MANUTENCAO",
-                      "OUTROS"
-                    ]
+                    "enum": ["RACAO", "VETERINARIO", "CASTRACAO", "MANUTENCAO", "OUTROS"]
                   },
                   "description": {
                     "type": "string",
@@ -6704,12 +6228,7 @@
                     "format": "date-time"
                   }
                 },
-                "required": [
-                  "category",
-                  "description",
-                  "amountCents",
-                  "spentAt"
-                ],
+                "required": ["category", "description", "amountCents", "spentAt"],
                 "additionalProperties": false
               },
               "example": {
@@ -6778,9 +6297,7 @@
     },
     "/api/admin/expenses/{id}": {
       "patch": {
-        "tags": [
-          "Admin — tesouraria"
-        ],
+        "tags": ["Admin — tesouraria"],
         "summary": "Atualiza despesa",
         "security": [
           {
@@ -6810,13 +6327,7 @@
                 "properties": {
                   "category": {
                     "type": "string",
-                    "enum": [
-                      "RACAO",
-                      "VETERINARIO",
-                      "CASTRACAO",
-                      "MANUTENCAO",
-                      "OUTROS"
-                    ]
+                    "enum": ["RACAO", "VETERINARIO", "CASTRACAO", "MANUTENCAO", "OUTROS"]
                   },
                   "description": {
                     "type": "string",
@@ -6893,9 +6404,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Admin — tesouraria"
-        ],
+        "tags": ["Admin — tesouraria"],
         "summary": "Exclui despesa",
         "security": [
           {
@@ -6957,9 +6466,7 @@
     },
     "/api/admin/donations": {
       "get": {
-        "tags": [
-          "Admin — tesouraria"
-        ],
+        "tags": ["Admin — tesouraria"],
         "summary": "Lista doações",
         "security": [
           {
@@ -7033,9 +6540,7 @@
     },
     "/api/admin/sponsorships": {
       "get": {
-        "tags": [
-          "Admin — tesouraria"
-        ],
+        "tags": ["Admin — tesouraria"],
         "summary": "Lista apadrinhamentos",
         "security": [
           {
@@ -7073,12 +6578,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "PENDING",
-                "ACTIVE",
-                "PAUSED",
-                "CANCELED"
-              ]
+              "enum": ["PENDING", "ACTIVE", "PAUSED", "CANCELED"]
             }
           }
         ],
@@ -7123,9 +6623,7 @@
     },
     "/api/admin/sponsorships/{id}/cancel": {
       "post": {
-        "tags": [
-          "Admin — tesouraria"
-        ],
+        "tags": ["Admin — tesouraria"],
         "summary": "Cancela apadrinhamento (também no gateway)",
         "security": [
           {
@@ -7187,9 +6685,7 @@
     },
     "/api/admin/partners": {
       "get": {
-        "tags": [
-          "Admin — parceiros"
-        ],
+        "tags": ["Admin — parceiros"],
         "summary": "Lista parceiros da API pública",
         "security": [
           {
@@ -7253,9 +6749,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Admin — parceiros"
-        ],
+        "tags": ["Admin — parceiros"],
         "summary": "Cadastra parceiro e gera chave de API (exibida uma única vez)",
         "security": [
           {
@@ -7284,10 +6778,7 @@
                     "format": "email"
                   }
                 },
-                "required": [
-                  "name",
-                  "contactEmail"
-                ],
+                "required": ["name", "contactEmail"],
                 "additionalProperties": false
               }
             }
@@ -7361,9 +6852,7 @@
     },
     "/api/admin/partners/{id}/rotate-key": {
       "post": {
-        "tags": [
-          "Admin — parceiros"
-        ],
+        "tags": ["Admin — parceiros"],
         "summary": "Gera nova chave (a anterior para de funcionar)",
         "security": [
           {
@@ -7425,9 +6914,7 @@
     },
     "/api/admin/partners/{id}/revoke": {
       "post": {
-        "tags": [
-          "Admin — parceiros"
-        ],
+        "tags": ["Admin — parceiros"],
         "summary": "Revoga a chave do parceiro",
         "security": [
           {
@@ -7489,9 +6976,7 @@
     },
     "/api/admin/users": {
       "get": {
-        "tags": [
-          "Admin — acessos"
-        ],
+        "tags": ["Admin — acessos"],
         "summary": "Lista usuários internos (S06 — gestão de acessos)",
         "security": [
           {
@@ -7542,9 +7027,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Admin — acessos"
-        ],
+        "tags": ["Admin — acessos"],
         "summary": "Cria usuário",
         "security": [
           {
@@ -7578,19 +7061,10 @@
                   },
                   "role": {
                     "type": "string",
-                    "enum": [
-                      "ADMIN",
-                      "VOLUNTEER",
-                      "SUPPORT_N2"
-                    ]
+                    "enum": ["ADMIN", "VOLUNTEER", "SUPPORT_N2"]
                   }
                 },
-                "required": [
-                  "name",
-                  "email",
-                  "password",
-                  "role"
-                ],
+                "required": ["name", "email", "password", "role"],
                 "additionalProperties": false
               }
             }
@@ -7669,9 +7143,7 @@
     },
     "/api/admin/users/assignable": {
       "get": {
-        "tags": [
-          "Admin — acessos"
-        ],
+        "tags": ["Admin — acessos"],
         "summary": "Usuários ativos para atribuição de chamados",
         "security": [
           {
@@ -7724,9 +7196,7 @@
     },
     "/api/admin/users/{id}": {
       "patch": {
-        "tags": [
-          "Admin — acessos"
-        ],
+        "tags": ["Admin — acessos"],
         "summary": "Atualiza papel, status ou senha",
         "security": [
           {
@@ -7761,11 +7231,7 @@
                   },
                   "role": {
                     "type": "string",
-                    "enum": [
-                      "ADMIN",
-                      "VOLUNTEER",
-                      "SUPPORT_N2"
-                    ]
+                    "enum": ["ADMIN", "VOLUNTEER", "SUPPORT_N2"]
                   },
                   "active": {
                     "type": "boolean"

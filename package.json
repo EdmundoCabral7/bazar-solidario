@@ -1,7 +1,7 @@
 {
   "name": "bazar-solidario",
   "private": true,
-  "description": "Bazar Solidário Digital — Projeto de Extensão V (UNI-RN)",
+  "description": "Bazar Solid\u00e1rio Digital \u2014 Projeto de Extens\u00e3o V (UNI-RN)",
   "workspaces": [
     "packages/*",
     "apps/*"
@@ -22,7 +22,11 @@
     "db:migrate": "npm run db:migrate -w @bazar/api",
     "db:seed": "npm run db:seed -w @bazar/api",
     "db:reset": "npm run db:reset -w @bazar/api",
-    "seed:simulation": "npm run seed:simulation -w @bazar/api"
+    "seed:simulation": "npm run seed:simulation -w @bazar/api",
+    "prod:migrate": "npm run prod:migrate -w @bazar/api",
+    "prod:seed": "npm run prod:seed -w @bazar/api",
+    "prod:simulation": "npm run prod:simulation -w @bazar/api",
+    "evidencias": "node tools/evidencias/capturar.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

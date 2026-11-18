@@ -24,6 +24,11 @@ const envSchema = z.object({
   MELHORENVIO_USER_AGENT: z.string().default('BazarSolidarioDigital (contato@pataspotiguares.org)'),
   WHATSAPP_TOKEN: z.string().optional(),
   WHATSAPP_PHONE_NUMBER_ID: z.string().optional(),
+  /** Roda o worker da outbox dentro do processo da API (hospedagem sem background worker). */
+  RUN_WORKER_IN_PROCESS: z
+    .enum(['true', 'false'])
+    .default('false')
+    .transform((v) => v === 'true'),
   /** Minutos até um pedido com Pix pendente ser cancelado pelo worker. */
   ORDER_PAYMENT_TTL_MINUTES: z.coerce.number().int().positive().default(60),
 });

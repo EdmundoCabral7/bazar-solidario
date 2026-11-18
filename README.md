@@ -119,7 +119,15 @@ Passo a passo completo em [docs/integracoes.md](docs/integracoes.md).
 - [docs/integracoes.md](docs/integracoes.md) — integrações I01–I05, como testar e requisitos não funcionais
 - [docs/api-publica.md](docs/api-publica.md) — guia para parceiros da API pública
 - [docs/openapi.json](docs/openapi.json) — especificação OpenAPI (75 operações)
+- [docs/deploy.md](docs/deploy.md) — publicação em Neon, Render e Vercel
+- [docs/evidencias.md](docs/evidencias.md) — checklist de evidências e captura automática
 
 ## Deploy
 
-_Links públicos serão adicionados na Fase 4._
+| Serviço                | URL           |
+| ---------------------- | ------------- |
+| Portal (Vercel)        | _a preencher_ |
+| API + Swagger (Render) | _a preencher_ |
+
+Passo a passo em [docs/deploy.md](docs/deploy.md) (Neon + Render + Vercel, planos gratuitos).
+Checklist de prints para o relatório: [docs/evidencias.md](docs/evidencias.md).

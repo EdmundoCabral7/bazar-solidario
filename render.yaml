@@ -1,0 +1,40 @@
+# Blueprint do Render (https://render.com/docs/blueprint-spec)
+# API do Bazar Solidário Digital — plano gratuito. O banco fica no Neon (DATABASE_URL).
+services:
+  - type: web
+    name: bazar-solidario-api
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci --include=dev && npm run build -w @bazar/shared && npm run build -w @bazar/api
+    # aplica migrations antes de subir a nova versão (no plano free o preDeploy roda junto do start)
+    startCommand: npm run db:deploy -w @bazar/api && npm run start -w @bazar/api
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: '20'
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false # string de conexão do Neon (definir no painel)
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 8h
+      - key: CORS_ORIGIN
+        sync: false # URL do portal na Vercel, ex.: https://bazar-solidario.vercel.app
+      - key: WEB_URL
+        sync: false # mesma URL do portal
+      - key: API_PUBLIC_URL
+        sync: false # URL desta API no Render
+      - key: INTEGRATIONS_MODE
+        value: mock
+      - key: VIACEP_MODE
+        value: real
+      - key: RUN_WORKER_IN_PROCESS
+        value: 'true'
+      - key: LOG_LEVEL
+        value: info
+      - key: MERCADOPAGO_WEBHOOK_SECRET
+        generateValue: true

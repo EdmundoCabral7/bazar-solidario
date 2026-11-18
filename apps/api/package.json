@@ -16,7 +16,11 @@
     "db:seed": "tsx --env-file=../../.env prisma/seed.ts",
     "db:reset": "dotenv -e ../../.env -- prisma migrate reset --force",
     "docs:export": "tsx --env-file=../../.env scripts/export-openapi.ts",
-    "seed:simulation": "tsx --env-file=../../.env prisma/simulation.ts"
+    "seed:simulation": "tsx --env-file=../../.env prisma/simulation.ts",
+    "start:worker": "node dist/worker.js",
+    "prod:migrate": "dotenv -e ../../.env.production -- prisma migrate deploy",
+    "prod:seed": "dotenv -e ../../.env.production -- tsx prisma/seed.ts",
+    "prod:simulation": "dotenv -e ../../.env.production -- tsx prisma/simulation.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

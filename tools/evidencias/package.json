@@ -1,0 +1,7 @@
+{
+  "name": "bazar-evidencias",
+  "private": true,
+  "description": "Captura automática das telas para o Relatório de Evidências (fora dos workspaces do monorepo).",
+  "type": "module",
+  "dependencies": { "playwright": "1.48.2" }
+}

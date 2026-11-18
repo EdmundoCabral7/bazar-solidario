@@ -1,0 +1,184 @@
+ ✓ test/payments.test.ts > pedido com Pix + webhook > cria pedido pendente, reserva estoque e gera Pix 111ms
+ ✓ test/payments.test.ts > pedido com Pix + webhook > simulador aprova → mesmo fluxo do webhook → pedido PAID e notificação 57ms
+ ✓ test/payments.test.ts > pedido com Pix + webhook > IDEMPOTÊNCIA: a mesma notificação repetida não é processada duas vezes 64ms
+ ✓ test/payments.test.ts > pedido com Pix + webhook > webhook com assinatura inválida é recusado (401) 32ms
+ ✓ test/payments.test.ts > pedido com Pix + webhook > pagamento recusado cancela o pedido e devolve o estoque 47ms
+ ✓ test/payments.test.ts > pedido com Pix + webhook > valor divergente não aprova o pagamento 40ms
+ ✓ test/payments.test.ts > Idempotency-Key na criação > repetir a requisição devolve o mesmo pedido sem nova cobrança 41ms
+ ✓ test/payments.test.ts > Idempotency-Key na criação > chave em formato inválido → 400 28ms
+ ✓ test/payments.test.ts > cartão, estoque e falhas do gateway > cartão aprovado na hora → pedido PAID 41ms
+ ✓ test/payments.test.ts > cartão, estoque e falhas do gateway > cartão recusado → pedido CANCELED 40ms
+ ✓ test/payments.test.ts > cartão, estoque e falhas do gateway > estoque insuficiente → 409 32ms
+ ✓ test/payments.test.ts > cartão, estoque e falhas do gateway > gateway fora do ar → 502, pedido cancelado e estoque devolvido 39ms
+ ✓ test/payments.test.ts > cartão, estoque e falhas do gateway > frete é recalculado no servidor 38ms
+ ✓ test/payments.test.ts > expiração de pedidos pendentes (worker) > cancela Pix não pago após o TTL e devolve o estoque 57ms
+ ✓ test/payments.test.ts > expiração de pedidos pendentes (worker) > pagamento aprovado após expiração abre incidente automático 56ms
+ ✓ test/tickets.test.ts > central de serviços > abertura pública calcula prioridade pela matriz e prazos de SLA 111ms
+ ✓ test/tickets.test.ts > central de serviços > acompanhamento por protocolo não expõe e-mail 44ms
+ ✓ test/tickets.test.ts > central de serviços > fluxo: atender → aguardar usuário → resposta do usuário → resolver → encerrar 58ms
+ ✓ test/tickets.test.ts > central de serviços > escalonamento N1 → N2 → N3 registra eventos; não volta de nível 48ms
+ ✓ test/tickets.test.ts > central de serviços > gerenciamento de problemas: vincula incidentes a um problema 46ms
+ ✓ test/tickets.test.ts > central de serviços > fila exige login e ordena por prioridade 47ms
+ ✓ test/tickets.test.ts > central de serviços > scope=active mostra só a fila de trabalho 51ms
+ ✓ test/tickets.test.ts > relatório de SLA > calcula conformidade, médias e violações 38ms
+ ✓ test/public-api.test.ts > API pública /api/public/v1 (I05) > exige x-api-key 103ms
+ ✓ test/public-api.test.ts > API pública /api/public/v1 (I05) > rejeita chave inválida 40ms
+ ✓ test/public-api.test.ts > API pública /api/public/v1 (I05) > lista animais disponíveis (sem adotados) com link de adoção 49ms
+ ✓ test/public-api.test.ts > API pública /api/public/v1 (I05) > animal adotado não aparece no detalhe 38ms
+ ✓ test/public-api.test.ts > API pública /api/public/v1 (I05) > lista campanhas ativas 41ms
+ ✓ test/public-api.test.ts > API pública /api/public/v1 (I05) > aplica rate limit por chave (429) 40ms
+ ✓ test/public-api.test.ts > API pública /api/public/v1 (I05) > chave revogada deixa de funcionar 38ms
+ ✓ test/public-api.test.ts > API pública /api/public/v1 (I05) > somente leitura: POST não existe 36ms
+ ✓ test/admin.test.ts > admin > CRUD de animais gera slug e aparece na vitrine 86ms
+ ✓ test/admin.test.ts > admin > voluntário não acessa despesas nem usuários (403) 41ms
+ ✓ test/admin.test.ts > admin > pedido pago: enviar → entregar, com rastreio e notificações 58ms
+ ✓ test/admin.test.ts > admin > transparência: arrecadado × gasto no mês corrente 56ms
+ ✓ test/admin.test.ts > admin > dashboard consolida indicadores 55ms
+ ✓ test/admin.test.ts > admin > admin não pode se desativar 39ms
+ ✓ test/fundraising.test.ts > doações > doação Pix aprovada notifica o doador 113ms
+ ✓ test/fundraising.test.ts > doações > doação anônima sem e-mail é aceita; mínimo de R$ 5 42ms
+ ✓ test/fundraising.test.ts > doações > e-mail sem consentimento LGPD é recusado 34ms
+ ✓ test/fundraising.test.ts > doações > doação vinculada a campanha soma no progresso 42ms
+ ✓ test/fundraising.test.ts > apadrinhamento (assinatura recorrente) > criar → autorizar → cobrar mensalidade → cancelar 64ms
+ ✓ test/fundraising.test.ts > apadrinhamento (assinatura recorrente) > Idempotency-Key evita assinatura duplicada 36ms
+ ✓ test/fundraising.test.ts > apadrinhamento (assinatura recorrente) > não permite apadrinhar animal já adotado 32ms
+ ✓ test/adoptions.test.ts > adoção > cria solicitação com protocolo e bloqueia duplicada 104ms
+ ✓ test/adoptions.test.ts > adoção > triagem completa: animal vira ADOPTED e as demais solicitações são recusadas 55ms
+ ✓ test/adoptions.test.ts > adoção > questionário exige concordância de todos os moradores e consentimento 32ms
+ ✓ test/outbox.test.ts > outbox + worker > telefone vai por WhatsApp (E.164), sem telefone vai por e-mail 61ms
+ ✓ test/outbox.test.ts > outbox + worker > envia pendentes e marca SENT; não reenvia 37ms
+ ✓ test/outbox.test.ts > outbox + worker > falha agenda nova tentativa com backoff e desiste após o máximo 46ms
+ ✓ test/outbox.test.ts > outbox + worker > dois workers concorrentes não enviam a mesma mensagem 40ms
+ ✓ test/outbox.test.ts > outbox + worker > backoff exponencial limitado a 1 h 29ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > documenta todas as áreas da API 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/health' existe na aplicação 29ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/metrics' existe na aplicação 3ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/auth/login' existe na aplicação 2ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/auth/me' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/animals' existe na aplicação 20ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/animals/{slug}' existe na aplicação 5ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/products' existe na aplicação 4ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/products/categories' existe na aplicação 2ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/products/{slug}' existe na aplicação 2ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/campaigns' existe na aplicação 4ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/campaigns/{slug}' existe na aplicação 2ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/cep/{cep}' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/shipping/quote' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/orders' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/orders/{code}' existe na aplicação 4ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/donations' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/donations/{id}' existe na aplicação 2ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/sponsorships' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/sponsorships/{id}' existe na aplicação 2ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/sponsorships/{id}/cancel' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/adoptions' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/adoptions/{code}' existe na aplicação 5ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/transparency' existe na aplicação 21ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/it-services' existe na aplicação 4ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/tickets' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/tickets' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/tickets/protocol/{protocol}' existe na aplicação 3ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/tickets/protocol/{protocol}/reply' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/tickets/internal' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/tickets/sla-report' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/tickets/{id}' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'patch' '/api/tickets/{id}/status' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/tickets/{id}/escalate' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/tickets/{id}/assign' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/tickets/{id}/comments' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/tickets/{id}/problem' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/webhooks/mercadopago' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/dev/payments/{id}/simulate' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/dev/sponsorships/{id}/simulate' existe na aplicação 1ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/public/v1/animals' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/public/v1/animals/{id}' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/public/v1/campaigns' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/admin/dashboard' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/admin/animals' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/admin/animals' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'patch' '/api/admin/animals/{id}' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'delete' '/api/admin/animals/{id}' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/admin/products' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/admin/products' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'patch' '/api/admin/products/{id}' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'delete' '/api/admin/products/{id}' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/admin/campaigns' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/admin/campaigns' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'patch' '/api/admin/campaigns/{id}' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/admin/orders' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/admin/orders/{id}' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'patch' '/api/admin/orders/{id}/status' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/admin/adoptions' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/admin/adoptions/{id}' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'patch' '/api/admin/adoptions/{id}/status' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/admin/expenses' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/admin/expenses' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'patch' '/api/admin/expenses/{id}' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'delete' '/api/admin/expenses/{id}' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/admin/donations' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/admin/sponsorships' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/admin/sponsorships/{id}/cancel' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/admin/partners' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/admin/partners' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/admin/partners/{id}/rotate-key' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/admin/partners/{id}/revoke' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/admin/users' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'post' '/api/admin/users' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'get' '/api/admin/users/assignable' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > 'patch' '/api/admin/users/{id}' existe na aplicação 0ms
+ ✓ test/openapi.test.ts > documentação OpenAPI > toda operação tem resumo e respostas 1ms
+ ✓ test/auth.test.ts > POST /api/auth/login > autentica e retorna JWT 22ms
+ ✓ test/auth.test.ts > POST /api/auth/login > rejeita senha errada 4ms
+ ✓ test/auth.test.ts > POST /api/auth/login > rejeita usuário inativo 3ms
+ ✓ test/auth.test.ts > POST /api/auth/login > valida o corpo com Zod 2ms
+ ✓ test/auth.test.ts > GET /api/auth/me > exige token 1ms
+ ✓ test/auth.test.ts > GET /api/auth/me > rejeita token inválido 1ms
+ ✓ test/auth.test.ts > GET /api/auth/me > retorna o usuário do token 5ms
+ ✓ test/health.test.ts > GET /health > retorna status do banco e das integrações 33ms
+ ✓ test/health.test.ts > GET /health > propaga o x-correlation-id recebido 4ms
+ ✓ test/health.test.ts > GET /health > gera x-correlation-id quando não enviado 1ms
+ ✓ test/health.test.ts > erros > rota inexistente devolve 404 no formato padrão 1ms
+ ✓ test/health.test.ts > erros > JSON malformado devolve 400 INVALID_JSON 4ms
+ ✓ test/health.test.ts > erros > serve a documentação OpenAPI 2ms
+ ✓ test/resilience.test.ts > ResilientExecutor (retry + circuit breaker) > repete falhas transitórias com backoff e devolve o resultado 5ms
+ ✓ test/resilience.test.ts > ResilientExecutor (retry + circuit breaker) > não repete erros não-retentáveis (4xx) 1ms
+ ✓ test/resilience.test.ts > ResilientExecutor (retry + circuit breaker) > aplica timeout por tentativa 21ms
+ ✓ test/resilience.test.ts > ResilientExecutor (retry + circuit breaker) > abre o circuito após falhas seguidas e falha rápido 0ms
+ ✓ test/resilience.test.ts > assinatura de webhook do Mercado Pago > aceita assinatura válida 0ms
+ ✓ test/resilience.test.ts > assinatura de webhook do Mercado Pago > rejeita segredo, data.id ou request-id diferentes 0ms
+ ✓ test/resilience.test.ts > assinatura de webhook do Mercado Pago > rejeita header malformado ou ausente 0ms
+ ✓ test/resilience.test.ts > assinatura de webhook do Mercado Pago > rejeita assinatura antiga quando há tolerância (anti-replay) 0ms
+ ✓ test/require-role.test.ts > requireRole > permite ADMIN 11ms
+ ✓ test/require-role.test.ts > requireRole > bloqueia VOLUNTEER com 403 3ms
+ ✓ test/sla.test.ts > matriz impacto × urgência > impacto HIGH + urgência HIGH = P1 0ms
+ ✓ test/sla.test.ts > matriz impacto × urgência > impacto HIGH + urgência MEDIUM = P2 0ms
+ ✓ test/sla.test.ts > matriz impacto × urgência > impacto MEDIUM + urgência HIGH = P2 0ms
+ ✓ test/sla.test.ts > matriz impacto × urgência > impacto HIGH + urgência LOW = P3 0ms
+ ✓ test/sla.test.ts > matriz impacto × urgência > impacto MEDIUM + urgência MEDIUM = P3 0ms
+ ✓ test/sla.test.ts > matriz impacto × urgência > impacto LOW + urgência HIGH = P3 0ms
+ ✓ test/sla.test.ts > matriz impacto × urgência > impacto MEDIUM + urgência LOW = P4 0ms
+ ✓ test/sla.test.ts > matriz impacto × urgência > impacto LOW + urgência MEDIUM = P4 0ms
+ ✓ test/sla.test.ts > matriz impacto × urgência > impacto LOW + urgência LOW = P4 0ms
+ ✓ test/sla.test.ts > addBusinessMinutes > soma dentro do mesmo expediente 1ms
+ ✓ test/sla.test.ts > addBusinessMinutes > termina exatamente às 18h sem pular de dia 0ms
+ ✓ test/sla.test.ts > addBusinessMinutes > transborda para o dia útil seguinte 0ms
+ ✓ test/sla.test.ts > addBusinessMinutes > abertura antes das 8h começa a contar às 8h 0ms
+ ✓ test/sla.test.ts > addBusinessMinutes > abertura depois das 18h começa no dia útil seguinte 0ms
+ ✓ test/sla.test.ts > addBusinessMinutes > pula o fim de semana 0ms
+ ✓ test/sla.test.ts > addBusinessMinutes > pula feriado (20/11, Consciência Negra) e o fim de semana seguinte 0ms
+ ✓ test/sla.test.ts > addBusinessMinutes > atravessa vários dias úteis 0ms
+ ✓ test/sla.test.ts > addBusinessMinutes > o resultado é um instante UTC correto (UTC−3) 0ms
+ ✓ test/sla.test.ts > calculateSlaDeadlines > P1 usa horas corridas, inclusive no fim de semana 0ms
+ ✓ test/sla.test.ts > calculateSlaDeadlines > P2: 2 h úteis de resposta e 8 h úteis de resolução 0ms
+ ✓ test/sla.test.ts > calculateSlaDeadlines > P3: 4 h úteis e 2 dias úteis (20 h) 0ms
+ ✓ test/sla.test.ts > calculateSlaDeadlines > P4 aberto na sexta à tarde: 1 dia útil e 3 dias úteis contados a partir de segunda 0ms
+ ✓ test/sla.test.ts > calculateSlaDeadlines > P2 aberto no feriado começa a contar no próximo dia útil 0ms
+ ✓ test/sla.test.ts > slaState > no prazo 0ms
+ ✓ test/sla.test.ts > slaState > em risco após 75% do prazo de resposta 0ms
+ ✓ test/sla.test.ts > slaState > violado sem resposta após o prazo 0ms
+ ✓ test/sla.test.ts > slaState > após responder, mede contra o prazo de resolução 0ms
+ ✓ test/sla.test.ts > slaState > resolvido no prazo = MET 0ms
+ ✓ test/sla.test.ts > slaState > resolvido fora do prazo = VIOLATED 0ms
+ Test Files  13 passed (13)
+      Tests  181 passed (181)
+   Duration  7.02s (transform 167ms, setup 0ms, collect 1.78s, tests 3.03s, environment 1ms, prepare 320ms)
