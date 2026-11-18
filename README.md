@@ -59,7 +59,10 @@ funcionam com simuladores.
 | http://localhost:3333/health      | Saúde da API, banco e integrações |
 | http://localhost:3333/metrics     | Métricas básicas                  |
 
-### Credenciais de demonstração
+### Credenciais de demonstração (ambiente local)
+
+> Em **produção**, a senha do administrador é diferente e foi informada apenas no relatório entregue no Moodle.
+
 
 | Perfil                 | E-mail                           | Senha      |
 | ---------------------- | -------------------------------- | ---------- |
