@@ -1,0 +1,461 @@
+// Bazar Solidário Digital — schema do banco (PostgreSQL)
+// Valores monetários sempre em centavos (Int).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Enums ----------
+
+enum Role {
+  ADMIN
+  VOLUNTEER
+  SUPPORT_N2
+}
+
+enum Species {
+  DOG
+  CAT
+}
+
+enum AnimalSize {
+  SMALL
+  MEDIUM
+  LARGE
+}
+
+enum Sex {
+  MALE
+  FEMALE
+}
+
+enum AnimalStatus {
+  AVAILABLE
+  IN_ADOPTION
+  ADOPTED
+}
+
+enum ProductCondition {
+  NEW
+  LIKE_NEW
+  GOOD
+  FAIR
+}
+
+enum ProductStatus {
+  ACTIVE
+  SOLD
+  HIDDEN
+}
+
+enum OrderStatus {
+  PENDING_PAYMENT
+  PAID
+  SHIPPED
+  DELIVERED
+  CANCELED
+}
+
+enum DeliveryType {
+  PICKUP
+  SHIPPING
+}
+
+enum SponsorshipPlan {
+  P20
+  P50
+  P100
+}
+
+enum SponsorshipStatus {
+  PENDING
+  ACTIVE
+  PAUSED
+  CANCELED
+}
+
+enum PaymentMethod {
+  PIX
+  CARD
+}
+
+enum PaymentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  REFUNDED
+  CANCELED
+}
+
+enum AdoptionStatus {
+  RECEIVED
+  IN_REVIEW
+  INTERVIEW
+  APPROVED
+  REJECTED
+}
+
+enum ExpenseCategory {
+  RACAO
+  VETERINARIO
+  CASTRACAO
+  MANUTENCAO
+  OUTROS
+}
+
+enum NotificationChannel {
+  WHATSAPP
+  EMAIL
+}
+
+enum OutboxStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+enum TicketType {
+  INCIDENT
+  SERVICE_REQUEST
+  PROBLEM
+}
+
+enum ImpactLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum UrgencyLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum Priority {
+  P1
+  P2
+  P3
+  P4
+}
+
+enum SupportLevel {
+  N1
+  N2
+  N3
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  WAITING_USER
+  RESOLVED
+  CLOSED
+}
+
+enum TicketEventType {
+  CREATED
+  STATUS_CHANGED
+  ESCALATED
+  ASSIGNED
+  COMMENT
+  LINKED_PROBLEM
+}
+
+// ---------- Usuários internos ----------
+
+model User {
+  id           String        @id @default(cuid())
+  name         String
+  email        String        @unique
+  passwordHash String
+  role         Role          @default(VOLUNTEER)
+  active       Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  assignedTickets Ticket[]   @relation("TicketAssignee")
+  ticketEvents TicketEvent[]
+}
+
+// ---------- Adoção ----------
+
+model Animal {
+  id           String            @id @default(cuid())
+  slug         String            @unique
+  name         String
+  species      Species
+  ageMonths    Int
+  size         AnimalSize
+  sex          Sex
+  neutered     Boolean           @default(false)
+  vaccinated   Boolean           @default(false)
+  description  String
+  photos       String[]
+  status       AnimalStatus      @default(AVAILABLE)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  adoptionRequests AdoptionRequest[]
+  sponsorships Sponsorship[]
+
+  @@index([status, species])
+}
+
+model AdoptionRequest {
+  id             String         @id @default(cuid())
+  publicCode     String         @unique
+  animalId       String
+  animal         Animal         @relation(fields: [animalId], references: [id])
+  applicantName  String
+  applicantEmail String
+  applicantPhone String
+  city           String
+  answers        Json
+  status         AdoptionStatus @default(RECEIVED)
+  notes          String?
+  consentAt      DateTime
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([status])
+}
+
+// ---------- Bazar ----------
+
+model Product {
+  id          String           @id @default(cuid())
+  slug        String           @unique
+  title       String
+  description String
+  category    String
+  size        String?
+  condition   ProductCondition
+  priceCents  Int
+  photos      String[]
+  stock       Int              @default(1)
+  status      ProductStatus    @default(ACTIVE)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  orderItems  OrderItem[]
+
+  @@index([status, category])
+}
+
+model Order {
+  id            String       @id @default(cuid())
+  publicCode    String       @unique
+  customerName  String
+  customerEmail String
+  customerPhone String
+  deliveryType  DeliveryType
+  cep           String?
+  street        String?
+  number        String?
+  complement    String?
+  district      String?
+  city          String?
+  state         String?
+  subtotalCents Int
+  shippingCents Int          @default(0)
+  totalCents    Int
+  status        OrderStatus  @default(PENDING_PAYMENT)
+  consentAt     DateTime
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  items         OrderItem[]
+  payment       Payment?
+
+  @@index([status])
+}
+
+model OrderItem {
+  id             String  @id @default(cuid())
+  orderId        String
+  order          Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId      String
+  product        Product @relation(fields: [productId], references: [id])
+  quantity       Int
+  unitPriceCents Int
+}
+
+// ---------- Doações ----------
+
+model Donation {
+  id          String   @id @default(cuid())
+  amountCents Int
+  donorName   String?
+  donorEmail  String?
+  anonymous   Boolean  @default(false)
+  consentAt   DateTime?
+  createdAt   DateTime @default(now())
+  payment     Payment?
+}
+
+model Sponsorship {
+  id                    String            @id @default(cuid())
+  animalId              String
+  animal                Animal            @relation(fields: [animalId], references: [id])
+  plan                  SponsorshipPlan
+  amountCents           Int
+  sponsorName           String
+  sponsorEmail          String
+  status                SponsorshipStatus @default(PENDING)
+  gatewaySubscriptionId String?           @unique
+  consentAt             DateTime
+  canceledAt            DateTime?
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+  payments              Payment[]
+
+  @@index([status])
+}
+
+/// Pagamento no gateway. Vinculado a exatamente UM entre Order, Donation ou Sponsorship
+/// (regra garantida por CHECK constraint na migration e validada no service).
+model Payment {
+  id             String        @id @default(cuid())
+  provider       String
+  externalId     String?       @unique
+  idempotencyKey String?       @unique
+  method         PaymentMethod
+  status         PaymentStatus @default(PENDING)
+  amountCents    Int
+  orderId        String?       @unique
+  order          Order?        @relation(fields: [orderId], references: [id])
+  donationId     String?       @unique
+  donation       Donation?     @relation(fields: [donationId], references: [id])
+  sponsorshipId  String?
+  sponsorship    Sponsorship?  @relation(fields: [sponsorshipId], references: [id])
+  pixQrCode      String?
+  pixCopyPaste   String?
+  rawResponse    Json?
+  paidAt         DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([status])
+}
+
+// ---------- Transparência ----------
+
+model Expense {
+  id          String          @id @default(cuid())
+  category    ExpenseCategory
+  description String
+  amountCents Int
+  spentAt     DateTime
+  createdAt   DateTime        @default(now())
+
+  @@index([spentAt])
+}
+
+// ---------- Integração ----------
+
+model Partner {
+  id           String    @id @default(cuid())
+  name         String
+  contactEmail String
+  apiKeyPrefix String
+  apiKeyHash   String    @unique
+  active       Boolean   @default(true)
+  lastUsedAt   DateTime?
+  createdAt    DateTime  @default(now())
+  revokedAt    DateTime?
+}
+
+/// Idempotência de webhooks: o par (provider, externalId) é único.
+model WebhookEvent {
+  id          String    @id @default(cuid())
+  provider    String
+  externalId  String
+  type        String
+  payload     Json
+  processedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@unique([provider, externalId])
+}
+
+/// Fila de notificações (padrão transactional outbox), processada pelo worker.
+model NotificationOutbox {
+  id            String              @id @default(cuid())
+  channel       NotificationChannel
+  recipient     String
+  template      String
+  payload       Json
+  status        OutboxStatus        @default(PENDING)
+  attempts      Int                 @default(0)
+  nextAttemptAt DateTime            @default(now())
+  lastError     String?
+  sentAt        DateTime?
+  createdAt     DateTime            @default(now())
+
+  @@index([status, nextAttemptAt])
+}
+
+// ---------- Governança de TI (ITIL) ----------
+
+model ItService {
+  id                 String   @id @default(cuid())
+  code               String   @unique
+  name               String
+  owner              String
+  description        String
+  availabilityTarget Decimal? @db.Decimal(5, 2)
+  rpoHours           Int?
+  rtoHours           Int?
+  tickets            Ticket[]
+}
+
+model Ticket {
+  id              String        @id @default(cuid())
+  protocol        String        @unique
+  serviceId       String
+  service         ItService     @relation(fields: [serviceId], references: [id])
+  type            TicketType
+  title           String
+  description     String
+  requesterName   String
+  requesterEmail  String
+  impact          ImpactLevel
+  urgency         UrgencyLevel
+  priority        Priority
+  level           SupportLevel  @default(N1)
+  status          TicketStatus  @default(OPEN)
+  responseDueAt   DateTime
+  resolutionDueAt DateTime
+  firstResponseAt DateTime?
+  resolvedAt      DateTime?
+  closedAt        DateTime?
+  assigneeId      String?
+  assignee        User?         @relation("TicketAssignee", fields: [assigneeId], references: [id])
+  /// Incidentes repetidos apontam para um ticket do tipo PROBLEM.
+  problemId       String?
+  problem         Ticket?       @relation("ProblemIncidents", fields: [problemId], references: [id])
+  incidents       Ticket[]      @relation("ProblemIncidents")
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  events          TicketEvent[]
+
+  @@index([status, priority])
+  @@index([createdAt])
+}
+
+model TicketEvent {
+  id        String          @id @default(cuid())
+  ticketId  String
+  ticket    Ticket          @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  type      TicketEventType
+  fromValue String?
+  toValue   String?
+  message   String?
+  authorId  String?
+  author    User?           @relation(fields: [authorId], references: [id])
+  createdAt DateTime        @default(now())
+
+  @@index([ticketId])
+}
