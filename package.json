@@ -21,7 +21,8 @@
     "test": "npm run build -w @bazar/shared && npm run test --workspaces --if-present",
     "db:migrate": "npm run db:migrate -w @bazar/api",
     "db:seed": "npm run db:seed -w @bazar/api",
-    "db:reset": "npm run db:reset -w @bazar/api"
+    "db:reset": "npm run db:reset -w @bazar/api",
+    "seed:simulation": "npm run seed:simulation -w @bazar/api"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

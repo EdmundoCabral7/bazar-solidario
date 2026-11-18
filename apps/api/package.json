@@ -15,7 +15,8 @@
     "db:deploy": "prisma migrate deploy",
     "db:seed": "tsx --env-file=../../.env prisma/seed.ts",
     "db:reset": "dotenv -e ../../.env -- prisma migrate reset --force",
-    "docs:export": "tsx --env-file=../../.env scripts/export-openapi.ts"
+    "docs:export": "tsx --env-file=../../.env scripts/export-openapi.ts",
+    "seed:simulation": "tsx --env-file=../../.env prisma/simulation.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

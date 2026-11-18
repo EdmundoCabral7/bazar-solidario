@@ -260,12 +260,107 @@ async function main() {
         data.push({
           category,
           description: `Gasto mensal — ${category.toLowerCase()}`,
-          amountCents: (i + 1) * 15000 + m * 2000,
+          amountCents: (i + 1) * 3500 + m * 500,
           spentAt: new Date(now.getFullYear(), now.getMonth() - m, 5 + i),
         });
       }
     }
     await prisma.expense.createMany({ data });
+  }
+
+  // Campanhas ativas (expostas na API pública)
+  const campaigns = [
+    {
+      slug: 'mutirao-castracao-2026',
+      title: 'Mutirão de castração 2026',
+      description: 'Meta: castrar 60 animais de rua em Natal até o fim do ano.',
+      goalCents: 900000,
+    },
+    {
+      slug: 'racao-de-inverno',
+      title: 'Ração para a temporada de chuvas',
+      description: 'Estoque de ração para os meses de chuva, quando as adoções caem.',
+      goalCents: 400000,
+    },
+  ];
+  for (const c of campaigns) {
+    await prisma.campaign.upsert({
+      where: { slug: c.slug },
+      update: {},
+      create: {
+        ...c,
+        startsAt: new Date(Date.now() - 30 * 86400_000),
+        endsAt: new Date(Date.now() + 60 * 86400_000),
+      },
+    });
+  }
+
+  // Histórico financeiro simulado (3 meses) para o painel de transparência
+  if (
+    !(await prisma.sponsorship.findUnique({ where: { gatewaySubscriptionId: 'mock-sub-seed-1' } }))
+  ) {
+    const campaign = await prisma.campaign.findUniqueOrThrow({
+      where: { slug: 'mutirao-castracao-2026' },
+    });
+    const now = new Date();
+    const at = (monthsBack: number, day: number) =>
+      new Date(now.getFullYear(), now.getMonth() - monthsBack, Math.min(day, 28), 15);
+    for (let m = 2; m >= 0; m--) {
+      for (let i = 0; i < 6 + m; i++) {
+        const amountCents = [2000, 5000, 3000, 10000, 2500, 7500, 15000, 4000][i % 8]!;
+        const paidAt = at(m, 2 + i * 3);
+        if (paidAt > now) continue;
+        await prisma.donation.create({
+          data: {
+            amountCents,
+            anonymous: i % 3 === 0,
+            donorName: i % 3 === 0 ? null : `Doador(a) Simulado(a) ${i + 1}`,
+            campaignId: i % 2 === 0 ? campaign.id : null,
+            createdAt: paidAt,
+            payment: {
+              create: {
+                provider: 'mock',
+                method: 'PIX',
+                status: 'APPROVED',
+                amountCents,
+                paidAt,
+                createdAt: paidAt,
+              },
+            },
+          },
+        });
+      }
+    }
+    const sponsoredAnimal = await prisma.animal.findUniqueOrThrow({ where: { slug: 'trovao' } });
+    const sponsorship = await prisma.sponsorship.create({
+      data: {
+        animalId: sponsoredAnimal.id,
+        plan: 'P50',
+        amountCents: 5000,
+        sponsorName: 'Madrinha Simulada',
+        sponsorEmail: 'madrinha@exemplo.org',
+        status: 'ACTIVE',
+        gatewaySubscriptionId: 'mock-sub-seed-1',
+        consentAt: at(2, 1),
+      },
+    });
+    for (let m = 2; m >= 0; m--) {
+      const paidAt = at(m, 5);
+      if (paidAt > now) continue;
+      await prisma.payment.create({
+        data: {
+          provider: 'mock',
+          externalId: `mock-ap-seed-${m}`,
+          method: 'CARD',
+          status: 'APPROVED',
+          amountCents: 5000,
+          paidAt,
+          createdAt: paidAt,
+          sponsorshipId: sponsorship.id,
+        },
+      });
+    }
+    console.log('Histórico de doações e apadrinhamentos simulado criado.');
   }
 
   if ((await prisma.partner.count()) === 0) {
