@@ -90,12 +90,26 @@ Todas estão documentadas em [`.env.example`](.env.example). As principais:
 | `INTEGRATIONS_MODE`   | `mock` (padrão) ou `sandbox`            |
 | `NEXT_PUBLIC_API_URL` | URL da API usada pelo portal            |
 
+## Portal (Entrega 1)
+
+| Área              | Páginas                                                                                                                                                                                                                                                                         |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Público           | `/` home · `/bazar` → `/bazar/{peça}` → `/carrinho` → `/checkout` → `/pedido/{código}` · `/adote` → `/adote/{animal}` → `/adote/{animal}/quero-adotar` · `/adote/acompanhar` · `/doe` (avulsa) · `/doe/apadrinhar` → `/doe/apadrinhar/{animal}` · `/transparencia` · `/suporte` |
+| Equipe (`/admin`) | Dashboard · Central de serviços (fila com SLA, detalhe, relatório) · Pedidos · Adoções · Animais · Peças · Despesas · Doações e padrinhos · Parceiros (API) · Usuários                                                                                                          |
+
+- Mobile-first, navegação por teclado, rótulos e mensagens de erro ligados aos campos, contraste validado, modo escuro.
+- Páginas de animal e de peça com metatags Open Graph (prévia no WhatsApp/Instagram).
+- O menu do admin mostra só o que o perfil pode acessar (voluntário não vê tesouraria, parceiros nem usuários).
+
 ## Demonstração rápida (modo mock)
 
-1. Feche um pedido no portal (ou via `POST /api/orders`) com Pix.
-2. Aprove o pagamento pelo simulador: `POST /api/dev/payments/{payment.id}/simulate` com `{"status":"APPROVED"}` —
-   ele dispara o **mesmo fluxo do webhook** do Mercado Pago (assinatura, idempotência, transição).
-3. Veja o pedido virar `PAID` em `GET /api/orders/{código}` e a notificação sair no log do worker.
+1. No portal, adicione uma peça ao carrinho e feche o pedido com Pix.
+2. Na página do pedido, clique em **Simular pagamento aprovado** — o portal chama
+   `POST /api/dev/payments/{id}/simulate`, que dispara o **mesmo fluxo do webhook** do Mercado Pago
+   (assinatura, idempotência, transição). A página atualiza sozinha para _Pago_.
+3. Com `npm run worker` rodando, a notificação de WhatsApp aparece no log.
+4. Apadrinhamento: o "checkout do Mercado Pago" é substituído por uma página simulada com o botão **Autorizar assinatura**.
+5. Cartão: no modo mock, o checkout oferece "cartão de teste aprovado/recusado".
 
 Passo a passo completo em [docs/integracoes.md](docs/integracoes.md).
 
