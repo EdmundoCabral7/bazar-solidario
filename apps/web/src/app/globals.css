@@ -18,6 +18,10 @@
   --border: oklch(0.9 0.015 70);
   --ring: oklch(0.52 0.13 40);
   --destructive: oklch(0.55 0.2 27);
+  /* séries de gráficos (validadas: CVD e contraste) */
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --chart-grid: #e7e2dc;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -36,6 +40,9 @@
     --accent-foreground: oklch(0.95 0.02 150);
     --border: oklch(0.32 0.01 50);
     --ring: oklch(0.7 0.12 45);
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --chart-grid: #3a3431;
   }
 }
 

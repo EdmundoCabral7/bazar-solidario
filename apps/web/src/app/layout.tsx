@@ -20,7 +20,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR">
       <body className="flex min-h-screen flex-col antialiased">
-        <a href="#conteudo" className="sr-only focus:not-sr-only focus:p-2">
+        <a
+          href="#conteudo"
+          className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-card focus:p-3"
+        >
           Pular para o conteúdo
         </a>
         <Providers>
