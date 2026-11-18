@@ -40,6 +40,12 @@ npm run db:seed        # imprime a API key do parceiro demo
 
 # 5. API (http://localhost:3333) + portal (http://localhost:3000)
 npm run dev
+
+# 6. (outro terminal) worker de notificações e expiração de pedidos
+npm run worker
+
+# 7. (opcional) 40 chamados simulados + relatório de SLA
+npm run seed:simulation
 ```
 
 Nenhuma conta externa é necessária: com `INTEGRATIONS_MODE=mock` (padrão) todas as integrações
@@ -84,10 +90,21 @@ Todas estão documentadas em [`.env.example`](.env.example). As principais:
 | `INTEGRATIONS_MODE`   | `mock` (padrão) ou `sandbox`            |
 | `NEXT_PUBLIC_API_URL` | URL da API usada pelo portal            |
 
+## Demonstração rápida (modo mock)
+
+1. Feche um pedido no portal (ou via `POST /api/orders`) com Pix.
+2. Aprove o pagamento pelo simulador: `POST /api/dev/payments/{payment.id}/simulate` com `{"status":"APPROVED"}` —
+   ele dispara o **mesmo fluxo do webhook** do Mercado Pago (assinatura, idempotência, transição).
+3. Veja o pedido virar `PAID` em `GET /api/orders/{código}` e a notificação sair no log do worker.
+
+Passo a passo completo em [docs/integracoes.md](docs/integracoes.md).
+
 ## Documentação
 
 - [docs/arquitetura.md](docs/arquitetura.md) — componentes e decisões técnicas
-- [docs/openapi.json](docs/openapi.json) — especificação OpenAPI exportada
+- [docs/integracoes.md](docs/integracoes.md) — integrações I01–I05, como testar e requisitos não funcionais
+- [docs/api-publica.md](docs/api-publica.md) — guia para parceiros da API pública
+- [docs/openapi.json](docs/openapi.json) — especificação OpenAPI (75 operações)
 
 ## Deploy
 

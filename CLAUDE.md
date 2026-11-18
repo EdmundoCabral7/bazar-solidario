@@ -212,6 +212,6 @@ Ao terminar cada fase, atualize a seção **"Status"** no fim deste arquivo.
 ## Status
 
 - [x] Fase 1 — Fundação (concluída em 18/11/2026; banco local na porta 5433)
-- [ ] Fase 2 — API e integrações
+- [x] Fase 2 — API e integrações (concluída em 18/11/2026; 75 rotas documentadas; criação interna de chamado em `/api/tickets/internal`; nova tabela `Campaign`)
 - [ ] Fase 3 — Portal
 - [ ] Fase 4 — Deploy e evidências
