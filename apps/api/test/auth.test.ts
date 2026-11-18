@@ -2,13 +2,13 @@ import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { createApp } from '../src/app';
 import { prisma } from '../src/lib/prisma';
-import { createUser } from './helpers';
+import { createUser, resetDb } from './helpers';
 
 const app = createApp();
 const email = 'login-teste@test.dev';
 
 beforeAll(async () => {
-  await prisma.user.deleteMany({ where: { email: { endsWith: '@test.dev' } } });
+  await resetDb();
   await createUser({ email, password: 'senha123', role: 'ADMIN' });
   await createUser({ email: 'inativo@test.dev', password: 'senha123', active: false });
 });

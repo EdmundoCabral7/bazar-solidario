@@ -10,7 +10,13 @@ describe('GET /health', () => {
     expect(res.status).toBe(200);
     expect(res.body.status).toBe('ok');
     expect(res.body.database.status).toBe('up');
-    expect(res.body.integrations).toHaveLength(4);
+    expect(res.body.integrations.map((i: { name: string }) => i.name)).toEqual([
+      'mercadopago',
+      'melhorenvio',
+      'viacep',
+      'whatsapp',
+      'email',
+    ]);
   });
 
   it('propaga o x-correlation-id recebido', async () => {
