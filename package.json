@@ -1,0 +1,35 @@
+{
+  "name": "bazar-solidario",
+  "private": true,
+  "description": "Bazar Solidário Digital — Projeto de Extensão V (UNI-RN)",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "npm run build -w @bazar/shared && concurrently -n api,web -c blue,green \"npm run dev -w @bazar/api\" \"npm run dev -w @bazar/web\"",
+    "dev:api": "npm run dev -w @bazar/api",
+    "dev:web": "npm run dev -w @bazar/web",
+    "worker": "npm run worker -w @bazar/api",
+    "build": "npm run build -w @bazar/shared && npm run build -w @bazar/api && npm run build -w @bazar/web",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "typecheck": "npm run build -w @bazar/shared && npm run typecheck --workspaces --if-present",
+    "test": "npm run build -w @bazar/shared && npm run test --workspaces --if-present",
+    "db:migrate": "npm run db:migrate -w @bazar/api",
+    "db:seed": "npm run db:seed -w @bazar/api",
+    "db:reset": "npm run db:reset -w @bazar/api"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "concurrently": "^9.2.5",
+    "eslint": "^9.39.5",
+    "globals": "^17.14.0",
+    "prettier": "^3.10.1",
+    "typescript": "5.6",
+    "typescript-eslint": "^8.73.0"
+  }
+}
