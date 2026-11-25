@@ -5,7 +5,7 @@ services:
     name: bazar-solidario-api
     runtime: node
     plan: free
-    region: oregon
+    region: virginia # mais próxima do Neon (sa-east-1)
     buildCommand: npm ci --include=dev && npm run build -w @bazar/shared && npm run build -w @bazar/api
     # aplica migrations antes de subir a nova versão (no plano free o preDeploy roda junto do start)
     startCommand: npm run db:deploy -w @bazar/api && npm run start -w @bazar/api
