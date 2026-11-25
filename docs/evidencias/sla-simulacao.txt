@@ -1,0 +1,18 @@
+# Saída de `npm run prod:simulation` — banco de produção (Neon, sa-east-1), executado em 25/11/2026
+# 40 chamados fictícios distribuídos em 2 semanas, entidade simulada (Associação Patas Potiguares)
+
+
+40 chamados simulados + 1 problema (com 4 incidentes vinculados). Alvo de violação: 13.
+
+Relatório de SLA (últimas 2 semanas):
+┌─────────┬───────┬─────────────────────┬──────────────────────┬────────────────────────────┬─────────────────────────────┐
+│ (index) │ total │ resposta no prazo % │ resolução no prazo % │ tempo médio resposta (min) │ tempo médio resolução (min) │
+├─────────┼───────┼─────────────────────┼──────────────────────┼────────────────────────────┼─────────────────────────────┤
+│ P1      │ 6     │ 66.7                │ 83.3                 │ 30                         │ 256                         │
+│ P2      │ 12    │ 66.7                │ 91.7                 │ 841                        │ 1553                        │
+│ P3      │ 4     │ 75                  │ 75                   │ 1531                       │ 2832                        │
+│ P4      │ 18    │ 88.9                │ 100                  │ 1300                       │ 4035                        │
+└─────────┴───────┴─────────────────────┴──────────────────────┴────────────────────────────┴─────────────────────────────┘
+Geral: resposta 77.5% | resolução 92.1% | 12 chamados com violação
+
+Veja também: GET /api/tickets/sla-report?from=2026-11-06&to=2026-11-25
